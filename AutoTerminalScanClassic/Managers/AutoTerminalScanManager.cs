@@ -55,12 +55,6 @@ internal class AutoTerminalScanManager
         }
 
         var broadcastMode = AutoTerminalScanClassic.BroadcastModeConfig?.Value ?? BroadcastMode.SelfOnly;
-        if (broadcastMode == BroadcastMode.HostOnly && !NetworkUtils.IsHost())
-        {
-            hasSentChatToday = true;
-            Logger.LogDebug("Not the host.");
-            return;
-        }
 
         if (itemCountOnLevelLoadedNullable == null)
         {
@@ -92,6 +86,17 @@ internal class AutoTerminalScanManager
         if (broadcastMode == BroadcastMode.SelfOnly)
         {
             sendChatSuccess = ChatUtils.SendChatToSelfOnly(message);
+        }
+        else if (broadcastMode == BroadcastMode.HostOnly)
+        {
+            if (!NetworkUtils.IsHost())
+            {
+                sendChatSuccess = ChatUtils.SendChatToSelfOnly(message);
+            }
+            else
+            {
+                sendChatSuccess = ChatUtils.SendChatToEveryone(message);
+            }
         }
         else
         {
