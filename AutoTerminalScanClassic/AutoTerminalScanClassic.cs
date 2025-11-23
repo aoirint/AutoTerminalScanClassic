@@ -13,7 +13,7 @@ public enum BroadcastMode
 {
     SelfOnly,
     HostOnly,
-    Everyone
+    Always
 }
 
 [BepInPlugin(ModInfo.GUID, ModInfo.NAME, ModInfo.VERSION)]
@@ -45,7 +45,10 @@ public class AutoTerminalScanClassic : BaseUnityPlugin
             "General",
             "BroadcastMode",
             BroadcastMode.SelfOnly,
-            "Controls whether this mod sends scan results to other players."
+            "Controls whether this mod sends scan results to other players." +
+            " If SelfOnly, you can still see scan results but not send to other players." +
+            " If HostOnly, you send scan results to other players only when you are the host." +
+            " If Always, you always send scan results to other players."
         );
 
         harmony.PatchAll();
