@@ -15,6 +15,13 @@ Client-side only. The host does not need to install this mod.
 However, any client may send their own scan results to the chat, which may spam the chat.
 So it's recommended for the host to install this mod and ask other players to configure not to send their own scan results.
 
+## Configuration
+
+| Name | Type | Default | Description |
+|:--------|:-----|:--------|:------------|
+| Enabled | bool | true | Set to false to disable this mod. |
+| BroadcastMode | enum | SelfOnly | Controls whether this mod sends scan results to other players. If SelfOnly, you can still see scan results but not send to other players. If HostOnly, you send scan results to other players only when you are the host. If Always, you always send scan results to other players. |
+
 ## Differences from [abu/AutoScan](https://thunderstore.io/c/lethal-company/p/abu/AutoScan/)
 
 `abu/AutoScan` splits item counts based on the item type.
