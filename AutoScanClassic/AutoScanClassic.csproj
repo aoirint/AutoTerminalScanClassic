@@ -1,0 +1,62 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>com.aoirint.AutoScanClassic</AssemblyName>
+    <Product>AutoScanClassic</Product>
+    <!-- !!APP_VERSION_MARKER!! -->
+    <Version>0.0.1</Version>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>latest</LangVersion>
+    <RestoreAdditionalProjectSources>
+      https://api.nuget.org/v3/index.json;
+      https://nuget.bepinex.dev/v3/index.json;
+      https://nuget.samboy.dev/v3/index.json
+    </RestoreAdditionalProjectSources>
+    <RootNamespace>AutoScanClassic</RootNamespace>
+    <CoreCompileDependsOn>
+      GenerateModInfo;
+      $(CoreCompileDependsOn)
+    </CoreCompileDependsOn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
+    <PackageReference Include="BepInEx.Core" Version="5.*" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
+    <PackageReference Include="LethalCompany.GameLibs.Steam" Version="73.0.0-ngd.0" />
+    <PackageReference Include="UnityEngine.Modules" Version="2022.3.62" IncludeAssets="compile" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
+  </ItemGroup>
+
+  <!-- Code generation -->
+  <ItemGroup>
+    <Compile Remove="Generated\**\*.cs" />
+  </ItemGroup>
+  <Target Name="GenerateModInfo">
+    <PropertyGroup>
+      <ModInfoTemplate>
+        $([System.IO.File]::ReadAllText('$(MSBuildProjectDirectory)/../Templates/ModInfo.template.cs'))
+      </ModInfoTemplate>
+      <ModInfoOut>
+        $([System.String]::Copy('$(ModInfoTemplate)')
+            .Replace('__CSPROJ_ASSEMBLY_NAME__', '$(AssemblyName)')
+            .Replace('__CSPROJ_PRODUCT__', '$(Product)')
+            .Replace('__CSPROJ_VERSION__', '$(Version)')
+        )
+      </ModInfoOut>
+      <ModInfoFile>$(MSBuildProjectDirectory)/Generated/ModInfo.g.cs</ModInfoFile>
+    </PropertyGroup>
+    <WriteLinesToFile
+        File="$(ModInfoFile)"
+        Overwrite="true"
+        Lines="$(ModInfoOut)"
+    />
+    <ItemGroup>
+      <Compile Include="$(ModInfoFile)" />
+    </ItemGroup>
+  </Target>
+</Project>

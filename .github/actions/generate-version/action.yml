@@ -1,0 +1,89 @@
+name: Generate Version
+description: "Generate application and git version based on csproj version and git tags."
+
+inputs:
+  csproj_file:
+    description: 'csproj file path'
+    required: true
+
+outputs:
+  release_mode:
+    description: 'latest, prerelease, edge'
+    value: ${{ steps.release-mode.outputs.mode }}
+  app_version:
+    description: 'Application version'
+    value: ${{ steps.app-version.outputs.version }}
+  git_version:
+    description: 'Git tag version'
+    value: ${{ steps.git-version.outputs.version }}
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: Extract csproj version
+      id: csproj-version
+      shell: bash
+      run: |
+        # Read the version from the next line after APP_VERSION_MARKER in the csproj file
+        # tr and xargs for trimming whitespace, line endings
+        CSPROJ_VERSION=$(sed -n '/APP_VERSION_MARKER/{n; s|<Version>\(.*\)</Version>|\1|; p;}' "${{ inputs.csproj_file }}" | tr -d '\r' | xargs)
+        echo "version=${CSPROJ_VERSION}" >> "${GITHUB_OUTPUT}"
+
+    - name: Check release mode
+      id: release-mode
+      shell: bash
+      run: |
+        # New version: Latest mode
+        # Known version: Edge mode
+
+        CSPROJ_VERSION="${{ steps.csproj-version.outputs.version }}"
+
+        git fetch --tags
+        if git rev-parse "refs/tags/v${CSPROJ_VERSION}" >/dev/null 2>&1; then
+          echo "mode=edge" >> "${GITHUB_OUTPUT}"
+        elif [[ "${CSPROJ_VERSION}" == *"-"* ]]; then
+          echo "mode=prerelease" >> "${GITHUB_OUTPUT}"
+        else
+          echo "mode=latest" >> "${GITHUB_OUTPUT}"
+        fi
+
+    - name: Generate app version
+      id: app-version
+      shell: bash
+      run: |
+        # Edge mode: {csproj_version}-edge.{date}.{short_sha}
+        # Prerelease mode: {csproj_version}-{prerelease}
+        # Latest mode: {csproj_version}
+        CSPROJ_VERSION="${{ steps.csproj-version.outputs.version }}"
+        RELEASE_MODE="${{ steps.release-mode.outputs.mode }}"
+
+        if [ "${RELEASE_MODE}" = "edge" ]; then
+          DATE_STRING=$(date -u "+%Y-%m-%dT%H-%M-%SZ")
+          SHA_SHORT="${GITHUB_SHA:0:7}"
+          APP_VERSION="${CSPROJ_VERSION}-edge.${DATE_STRING}.${SHA_SHORT}"
+        else
+          APP_VERSION="${CSPROJ_VERSION}"
+        fi
+
+        echo "version=${APP_VERSION}" >> "${GITHUB_OUTPUT}"
+
+    - name: Generate git version
+      id: git-version
+      shell: bash
+      run: |
+        APP_VERSION="${{ steps.app-version.outputs.version }}"
+        echo "version=v${APP_VERSION}" >> "${GITHUB_OUTPUT}"
+
+    - name: Replace version in csproj
+      shell: bash
+      run: |
+        APP_VERSION="${{ steps.app-version.outputs.version }}"
+        sed -i "/APP_VERSION_MARKER/{n; s|<Version>.*</Version>|<Version>${APP_VERSION}</Version>|;}" AutoScanClassic/AutoScanClassic.csproj
+
+    - name: Replace version in manifest.json
+      shell: bash
+      run: |
+        APP_VERSION="${{ steps.app-version.outputs.version }}"
+        jq --arg ver "${APP_VERSION}" '.version_number = $ver' assets/manifest.json > assets/manifest.tmp.json
+        mv assets/manifest.tmp.json assets/manifest.json
