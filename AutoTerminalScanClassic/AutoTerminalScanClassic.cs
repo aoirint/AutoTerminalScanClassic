@@ -5,6 +5,7 @@ using BepInEx.Logging;
 using HarmonyLib;
 using AutoTerminalScanClassic.Generated;
 using AutoTerminalScanClassic.Managers;
+using BepInEx.Configuration;
 
 namespace AutoTerminalScanClassic;
 
@@ -18,9 +19,18 @@ public class AutoTerminalScanClassic : BaseUnityPlugin
 
     internal static AutoTerminalScanManager AutoTerminalScanManager { get; } = new();
 
+    internal static ConfigEntry<bool>? EnabledConfig { get; private set; }
+
     private void Awake()
     {
         Logger = base.Logger;
+
+        EnabledConfig = Config.Bind(
+            "General",
+            "Enabled",
+            true,
+            "Set to false to disable this mod."
+        );
 
         harmony.PatchAll();
 

@@ -14,6 +14,12 @@ internal class AutoTerminalScanManager
 
     public void ResetAndScanForNewLevel()
     {
+        if (AutoTerminalScanClassic.EnabledConfig == null || !AutoTerminalScanClassic.EnabledConfig.Value)
+        {
+            hasSentChatToday = true;
+            return;
+        }
+
         itemCountOnLevelLoadedNullable = null;
         hasSentChatToday = false;
 
@@ -34,6 +40,11 @@ internal class AutoTerminalScanManager
 
     public void ScanAndSendChatOnce()
     {
+        if (AutoTerminalScanClassic.EnabledConfig == null || !AutoTerminalScanClassic.EnabledConfig.Value)
+        {
+            return;
+        }
+
         if (hasSentChatToday)
         {
             return;
