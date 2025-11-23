@@ -15,9 +15,9 @@ internal class TimeOfDayPatch
     [HarmonyPostfix]
     public static void MoveTimeOfDayPostfix(TimeOfDay __instance)
     {
-        if (!NetworkUtils.IsServer())
+        if (!NetworkUtils.IsClient())
         {
-            Logger.LogDebug("Not the server. Skipping AdvanceHourAndSpawnNewBatchOfEnemiesPostfix.");
+            Logger.LogDebug("Not the client. Skipping AdvanceHourAndSpawnNewBatchOfEnemiesPostfix.");
             return;
         }
 

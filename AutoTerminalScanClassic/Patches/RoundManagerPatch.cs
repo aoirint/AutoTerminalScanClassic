@@ -15,9 +15,9 @@ internal class RoundManagerPatch
     [HarmonyPostfix]
     public static void FinishGeneratingNewLevelClientRpcPostfix(RoundManager __instance)
     {
-        if (!NetworkUtils.IsServer())
+        if (!NetworkUtils.IsClient())
         {
-            Logger.LogDebug("Not the server. Skipping FinishGeneratingNewLevelClientRpcPostfix.");
+            Logger.LogDebug("Not the client. Skipping FinishGeneratingNewLevelClientRpcPostfix.");
             return;
         }
 

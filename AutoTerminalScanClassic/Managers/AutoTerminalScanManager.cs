@@ -14,7 +14,8 @@ internal class AutoTerminalScanManager
 
     public void ResetAndScanForNewLevel()
     {
-        if (AutoTerminalScanClassic.EnabledConfig == null || !AutoTerminalScanClassic.EnabledConfig.Value)
+        var enabled = AutoTerminalScanClassic.EnabledConfig?.Value ?? true;
+        if (!enabled)
         {
             hasSentChatToday = true;
             return;
@@ -40,19 +41,30 @@ internal class AutoTerminalScanManager
 
     public void ScanAndSendChatOnce()
     {
-        if (AutoTerminalScanClassic.EnabledConfig == null || !AutoTerminalScanClassic.EnabledConfig.Value)
-        {
-            return;
-        }
-
         if (hasSentChatToday)
         {
             return;
         }
 
+        var enabled = AutoTerminalScanClassic.EnabledConfig?.Value ?? true;
+        if (!enabled)
+        {
+            hasSentChatToday = true;
+            Logger.LogDebug("Not enabled.");
+            return;
+        }
+
+        var broadcastMode = AutoTerminalScanClassic.BroadcastModeConfig?.Value ?? BroadcastMode.SelfOnly;
+        if (broadcastMode == BroadcastMode.HostOnly && !NetworkUtils.IsHost())
+        {
+            hasSentChatToday = true;
+            Logger.LogDebug("Not the host.");
+            return;
+        }
+
         if (itemCountOnLevelLoadedNullable == null)
         {
-            Logger.LogError("itemCountOnLevelLoaded is null. Aborting ScanAndSendChatOnHourAdvanced.");
+            Logger.LogError("itemCountOnLevelLoaded is null.");
             return;
         }
         var itemCountOnLevelLoaded = itemCountOnLevelLoadedNullable.Value;
@@ -60,7 +72,7 @@ internal class AutoTerminalScanManager
         var itemCountOnHourAdvancedNullable = TerminalUtils.ScanItemCount();
         if (itemCountOnHourAdvancedNullable == null)
         {
-            Logger.LogError("itemCountOnHourAdvanced is null. Aborting ScanAndSendChatOnHourAdvanced.");
+            Logger.LogError("itemCountOnHourAdvanced is null.");
             return;
         }
         var itemCountOnHourAdvanced = itemCountOnHourAdvancedNullable.Value;
@@ -75,7 +87,17 @@ internal class AutoTerminalScanManager
         );
 
         var message = $"{itemCountOnLevelLoaded} {itemCountDifference}";
-        var sendChatSuccess = ChatUtils.SendChatToAllAsLocalPlayer(message);
+
+        bool sendChatSuccess;
+        if (broadcastMode == BroadcastMode.SelfOnly)
+        {
+            sendChatSuccess = ChatUtils.SendChatToSelfOnly(message);
+        }
+        else
+        {
+            sendChatSuccess = ChatUtils.SendChatToEveryone(message);
+        }
+
         if (!sendChatSuccess)
         {
             Logger.LogError($"Failed to send chat message. message={message}");

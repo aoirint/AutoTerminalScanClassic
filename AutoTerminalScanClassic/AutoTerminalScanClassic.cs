@@ -9,6 +9,13 @@ using BepInEx.Configuration;
 
 namespace AutoTerminalScanClassic;
 
+public enum BroadcastMode
+{
+    SelfOnly,
+    HostOnly,
+    Everyone
+}
+
 [BepInPlugin(ModInfo.GUID, ModInfo.NAME, ModInfo.VERSION)]
 [BepInProcess("Lethal Company.exe")]
 public class AutoTerminalScanClassic : BaseUnityPlugin
@@ -21,6 +28,8 @@ public class AutoTerminalScanClassic : BaseUnityPlugin
 
     internal static ConfigEntry<bool>? EnabledConfig { get; private set; }
 
+    internal static ConfigEntry<BroadcastMode>? BroadcastModeConfig { get; private set; }
+
     private void Awake()
     {
         Logger = base.Logger;
@@ -30,6 +39,13 @@ public class AutoTerminalScanClassic : BaseUnityPlugin
             "Enabled",
             true,
             "Set to false to disable this mod."
+        );
+
+        BroadcastModeConfig = Config.Bind(
+            "General",
+            "BroadcastMode",
+            BroadcastMode.SelfOnly,
+            "Controls whether this mod sends scan results to other players."
         );
 
         harmony.PatchAll();
