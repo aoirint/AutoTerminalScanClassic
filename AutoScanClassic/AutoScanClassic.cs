@@ -4,6 +4,7 @@ using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 using AutoScanClassic.Generated;
+using AutoScanClassic.Managers;
 
 namespace AutoScanClassic;
 
@@ -14,6 +15,8 @@ public class AutoScanClassic : BaseUnityPlugin
     internal static new ManualLogSource? Logger { get; private set; }
 
     internal static Harmony harmony = new(ModInfo.GUID);
+
+    internal static AutoTerminalScanManager AutoTerminalScanManager { get; } = new();
 
     private void Awake()
     {

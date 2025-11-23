@@ -21,7 +21,14 @@ internal class RoundManagerPatch
             return;
         }
 
-        // TODO: Scan logic
+        var autoTerminalScanManager = AutoScanClassic.AutoTerminalScanManager;
+        if (autoTerminalScanManager == null)
+        {
+            Logger.LogError("AutoTerminalScanManager is null.");
+            return;
+        }
+
+        autoTerminalScanManager.ResetAndScanForNewLevel();
     }
 
     [HarmonyPatch(nameof(RoundManager.AdvanceHourAndSpawnNewBatchOfEnemies))]
@@ -34,8 +41,13 @@ internal class RoundManagerPatch
             return;
         }
 
-        // TODO: Scan logic
+        var autoTerminalScanManager = AutoScanClassic.AutoTerminalScanManager;
+        if (autoTerminalScanManager == null)
+        {
+            Logger.LogError("AutoTerminalScanManager is null.");
+            return;
+        }
 
-        // TODO: Send chat logic
+        autoTerminalScanManager.ScanAndSendChatOnce();
     }
 }
