@@ -30,24 +30,4 @@ internal class RoundManagerPatch
 
         autoTerminalScanManager.ResetAndScanForNewLevel();
     }
-
-    [HarmonyPatch(nameof(RoundManager.AdvanceHourAndSpawnNewBatchOfEnemies))]
-    [HarmonyPostfix]
-    public static void AdvanceHourAndSpawnNewBatchOfEnemiesPostfix(RoundManager __instance)
-    {
-        if (!NetworkUtils.IsServer())
-        {
-            Logger.LogDebug("Not the server. Skipping AdvanceHourAndSpawnNewBatchOfEnemiesPostfix.");
-            return;
-        }
-
-        var autoTerminalScanManager = AutoTerminalScanClassic.AutoTerminalScanManager;
-        if (autoTerminalScanManager == null)
-        {
-            Logger.LogError("AutoTerminalScanManager is null.");
-            return;
-        }
-
-        autoTerminalScanManager.ScanAndSendChatOnce();
-    }
 }

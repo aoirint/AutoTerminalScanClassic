@@ -36,7 +36,6 @@ internal class AutoTerminalScanManager
     {
         if (hasSentChatToday)
         {
-            Logger.LogDebug("Already sent chat today. Skipping.");
             return;
         }
 
