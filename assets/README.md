@@ -2,6 +2,19 @@
 
 A Lethal Company mod that scans the number of scraps on the moon and sends it to the chat at the start of each day, just like the terminal scan technique.
 
+This mod works for v73+. Maybe works for the earlier versions, but not tested.
+
+## What it does
+
+- Daily automatic terminal scan: At the start of each day, scans the number of scraps on the moon and sends it to the chat like `19 4`.
+
+## Who needs to install
+
+Client-side only. The host does not need to install this mod.
+
+However, any client may send their own scan results to the chat, which may spam the chat.
+So it's recommended for the host to install this mod and ask other players to configure not to send their own scan results.
+
 ## Differences from [abu/AutoScan](https://thunderstore.io/c/lethal-company/p/abu/AutoScan/)
 
 `abu/AutoScan` splits item counts based on the item type.
