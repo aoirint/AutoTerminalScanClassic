@@ -25,14 +25,14 @@ jobs:
         id: generate-version
         uses: ./.github/actions/generate-version
         with:
-          csproj_file: "AutoScanClassic/AutoScanClassic.csproj"
+          csproj_file: "AutoTerminalScanClassic/AutoTerminalScanClassic.csproj"
 
       - name: Setup .NET
         uses: actions/setup-dotnet@d4c94342e560b34958eacfc5d055d21461ed1c5d # v5.0.0
         with:
           dotnet-version: '9.x'
           cache: true
-          cache-dependency-path: AutoScanClassic/packages.lock.json
+          cache-dependency-path: AutoTerminalScanClassic/packages.lock.json
 
       - name: Restore NuGet packages
         run: dotnet restore --locked-mode
@@ -52,14 +52,14 @@ jobs:
       - name: Create artifact
         run: |
           TMP_ARTIFACT_DIR=./tmp_artifacts
-          ARTIFACT_STEM=AutoScanClassic-v${{ steps.generate-version.outputs.app_version }}
+          ARTIFACT_STEM=AutoTerminalScanClassic-v${{ steps.generate-version.outputs.app_version }}
 
           mkdir -p "${TMP_ARTIFACT_DIR}/${ARTIFACT_STEM}"
 
           # Package format
           # https://thunderstore.io/c/lethal-company/create/docs/
 
-          mv ./AutoScanClassic/bin/Release/netstandard2.1/com.aoirint.AutoScanClassic.dll  "${TMP_ARTIFACT_DIR}/${ARTIFACT_STEM}/"
+          mv ./AutoTerminalScanClassic/bin/Release/netstandard2.1/com.aoirint.AutoTerminalScanClassic.dll  "${TMP_ARTIFACT_DIR}/${ARTIFACT_STEM}/"
 
           cp ./assets/manifest.json  "${TMP_ARTIFACT_DIR}/${ARTIFACT_STEM}/manifest.json"
           cp ./assets/icon.png  "${TMP_ARTIFACT_DIR}/${ARTIFACT_STEM}/"

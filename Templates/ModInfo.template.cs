@@ -1,4 +1,4 @@
-namespace AutoScanClassic.Generated;
+namespace AutoTerminalScanClassic.Generated;
 
 internal static class ModInfo {
     public const string GUID = "__CSPROJ_ASSEMBLY_NAME__";

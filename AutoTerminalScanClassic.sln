@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{71DB246C-7BAA-42A5-9DBB-40590021E70A}") = "AutoScanClassic", "AutoScanClassic/AutoScanClassic.csproj", "{2ABFD8BF-3A8A-405C-91F9-8CAF0F6D6156}"
+Project("{71DB246C-7BAA-42A5-9DBB-40590021E70A}") = "AutoTerminalScanClassic", "AutoTerminalScanClassic/AutoTerminalScanClassic.csproj", "{2ABFD8BF-3A8A-405C-91F9-8CAF0F6D6156}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

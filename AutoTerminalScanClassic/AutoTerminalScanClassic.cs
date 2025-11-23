@@ -3,14 +3,14 @@
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
-using AutoScanClassic.Generated;
-using AutoScanClassic.Managers;
+using AutoTerminalScanClassic.Generated;
+using AutoTerminalScanClassic.Managers;
 
-namespace AutoScanClassic;
+namespace AutoTerminalScanClassic;
 
 [BepInPlugin(ModInfo.GUID, ModInfo.NAME, ModInfo.VERSION)]
 [BepInProcess("Lethal Company.exe")]
-public class AutoScanClassic : BaseUnityPlugin
+public class AutoTerminalScanClassic : BaseUnityPlugin
 {
     internal static new ManualLogSource? Logger { get; private set; }
 

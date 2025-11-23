@@ -2,11 +2,11 @@
 
 using BepInEx.Logging;
 
-namespace AutoScanClassic.Utils;
+namespace AutoTerminalScanClassic.Utils;
 
 internal static class ChatUtils
 {
-    internal static ManualLogSource Logger => AutoScanClassic.Logger!;
+    internal static ManualLogSource Logger => AutoTerminalScanClassic.Logger!;
 
     public static bool SendChatToAllAsLocalPlayer(string message)
     {

@@ -3,11 +3,11 @@
 using BepInEx.Logging;
 using Unity.Netcode;
 
-namespace AutoScanClassic.Utils;
+namespace AutoTerminalScanClassic.Utils;
 
 internal static class NetworkUtils
 {
-    internal static ManualLogSource Logger => AutoScanClassic.Logger!;
+    internal static ManualLogSource Logger => AutoTerminalScanClassic.Logger!;
 
     public static bool IsServer()
     {

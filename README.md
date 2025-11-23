@@ -1,4 +1,4 @@
-# AutoScanClassic
+# AutoTerminalScanClassic
 
 - [User guide](./assets/README.md)
 
@@ -54,7 +54,7 @@ DOTNET_CLI_UI_LANGUAGE=en dotnet build --configuration Release
 
 ## Release
 
-1. Replace version in `AutoScanClassic/AutoScanClassic.csproj` as semver format, e.g. `1.2.3`.
+1. Replace version in `AutoTerminalScanClassic/AutoTerminalScanClassic.csproj` as semver format, e.g. `1.2.3`.
 2. Commit and push the changes.
 3. CI will create a GitHub Release automatically.
 4. Download the release artifact from the GitHub Release page.

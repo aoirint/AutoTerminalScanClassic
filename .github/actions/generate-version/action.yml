@@ -79,7 +79,7 @@ runs:
       shell: bash
       run: |
         APP_VERSION="${{ steps.app-version.outputs.version }}"
-        sed -i "/APP_VERSION_MARKER/{n; s|<Version>.*</Version>|<Version>${APP_VERSION}</Version>|;}" AutoScanClassic/AutoScanClassic.csproj
+        sed -i "/APP_VERSION_MARKER/{n; s|<Version>.*</Version>|<Version>${APP_VERSION}</Version>|;}" AutoTerminalScanClassic/AutoTerminalScanClassic.csproj
 
     - name: Replace version in manifest.json
       shell: bash

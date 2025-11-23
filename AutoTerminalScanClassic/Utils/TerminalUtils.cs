@@ -3,11 +3,11 @@
 using BepInEx.Logging;
 using UnityEngine;
 
-namespace AutoScanClassic.Utils;
+namespace AutoTerminalScanClassic.Utils;
 
 internal static class TerminalUtils
 {
-    internal static ManualLogSource Logger => AutoScanClassic.Logger!;
+    internal static ManualLogSource Logger => AutoTerminalScanClassic.Logger!;
 
     public static int? ScanItemCount()
     {

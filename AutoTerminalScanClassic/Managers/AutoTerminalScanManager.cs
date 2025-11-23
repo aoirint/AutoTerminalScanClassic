@@ -1,13 +1,13 @@
 #nullable enable
 
 using BepInEx.Logging;
-using AutoScanClassic.Utils;
+using AutoTerminalScanClassic.Utils;
 
-namespace AutoScanClassic.Managers;
+namespace AutoTerminalScanClassic.Managers;
 
 internal class AutoTerminalScanManager
 {
-    internal static ManualLogSource Logger => AutoScanClassic.Logger!;
+    internal static ManualLogSource Logger => AutoTerminalScanClassic.Logger!;
 
     private int? itemCountOnLevelLoadedNullable;
     private bool hasSentChatToday = false;

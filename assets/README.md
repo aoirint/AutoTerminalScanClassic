@@ -1,1 +1,1 @@
-# AutoScanClassic
+# AutoTerminalScanClassic

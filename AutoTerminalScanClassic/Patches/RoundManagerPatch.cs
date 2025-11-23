@@ -1,15 +1,15 @@
 #nullable enable
 
-using AutoScanClassic.Utils;
+using AutoTerminalScanClassic.Utils;
 using BepInEx.Logging;
 using HarmonyLib;
 
-namespace AutoScanClassic.Patches;
+namespace AutoTerminalScanClassic.Patches;
 
 [HarmonyPatch(typeof(RoundManager))]
 internal class RoundManagerPatch
 {
-    internal static ManualLogSource Logger => AutoScanClassic.Logger!;
+    internal static ManualLogSource Logger => AutoTerminalScanClassic.Logger!;
 
     [HarmonyPatch(nameof(RoundManager.FinishGeneratingNewLevelClientRpc))]
     [HarmonyPostfix]
@@ -21,7 +21,7 @@ internal class RoundManagerPatch
             return;
         }
 
-        var autoTerminalScanManager = AutoScanClassic.AutoTerminalScanManager;
+        var autoTerminalScanManager = AutoTerminalScanClassic.AutoTerminalScanManager;
         if (autoTerminalScanManager == null)
         {
             Logger.LogError("AutoTerminalScanManager is null.");
@@ -41,7 +41,7 @@ internal class RoundManagerPatch
             return;
         }
 
-        var autoTerminalScanManager = AutoScanClassic.AutoTerminalScanManager;
+        var autoTerminalScanManager = AutoTerminalScanClassic.AutoTerminalScanManager;
         if (autoTerminalScanManager == null)
         {
             Logger.LogError("AutoTerminalScanManager is null.");
