@@ -22,6 +22,13 @@ So it's recommended for the host to install this mod and ask other players to co
 | Enabled | bool | true | Set to false to disable this mod. |
 | BroadcastMode | enum | SelfOnly | Controls whether this mod sends scan results to other players. If SelfOnly, you can still see scan results but not send to other players. If HostOnly, you send scan results to other players only when you are the host. If Always, you always send scan results to other players. |
 
+## Differences from [matsuura/AutoScan](https://thunderstore.io/c/lethal-company/p/matsuura/AutoScan/)
+
+`matsuura/AutoScan` updates the number of scraps when players collect scraps into the ship.
+Maybe affected by Nutcracker shotguns, Butler knives, and Maneater feeding during the day.
+
+This mod only calculates the number of scraps at the start of each day and does not update after that.
+
 ## Differences from [abu/AutoScan](https://thunderstore.io/c/lethal-company/p/abu/AutoScan/)
 
 `abu/AutoScan` splits item counts based on the item type.
@@ -55,10 +62,3 @@ This mod counts items exactly like the vanilla terminal scan, which may result i
 `PsyKO345/ScrapCounter` displays the number of scraps using a custom UI element.
 
 This mod sends the number of scraps to the chat.
-
-## Differences from [matsuura/AutoScan](https://thunderstore.io/c/lethal-company/p/matsuura/AutoScan/)
-
-`matsuura/AutoScan` updates the number of scraps when players collect scraps into the ship.
-Maybe affected by Nutcracker shotguns, Butler knives, and Maneater feeding during the day.
-
-This mod only calculates the number of scraps at the start of each day and does not update after that.
