@@ -31,33 +31,33 @@ This mod only calculates the number of scraps at the start of each day and does 
 
 ## Differences from [abu/AutoScan](https://thunderstore.io/c/lethal-company/p/abu/AutoScan/)
 
-`abu/AutoScan` splits item counts based on the item type.
+`abu/AutoScan` splits the number of scraps based on the item type.
 
-This mod splits item counts based solely on scan timing.
+This mod splits the number of scraps based solely on scan timing.
 
-`abu/AutoScan` uses GameObject hierarchy to exclude items on the ship and cruiser, which may result in *more accurate* counts than vanilla.
+`abu/AutoScan` uses GameObject hierarchy to exclude items on the ship and cruiser, which may result in *more accurate* count than vanilla.
 
-This mod counts items exactly like the vanilla terminal scan, which may result in *inaccurate* counts like vanilla.
+This mod counts items exactly like the vanilla terminal scan, which may result in *inaccurate* count like vanilla.
 
 ## Differences from [Happyness/AutoTerminalScan](https://thunderstore.io/c/lethal-company/p/Happyness/AutoTerminalScan/)
 
-`Happyness/AutoTerminalScan` reports item counts categorized by item types (e.g., indoor scrap, bee hives, bird presence).
+`Happyness/AutoTerminalScan` reports the number of scraps categorized by the item type. e.g., indoor scrap, bee hives, bird presence.
 
-This mod splits item counts based solely on scan timing.
+This mod splits the number of scraps based solely on scan timing.
 
 `Happyness/AutoTerminalScan` reports dungeon type information.
 
-This mod only reports item counts.
+This mod only reports the number of scraps.
 
 ## Differences from [PsyKO345/ScrapCounter](https://thunderstore.io/c/lethal-company/p/PsyKO345/ScrapCounter/)
 
-`PsyKO345/ScrapCounter` splits item counts based on the item type.
+`PsyKO345/ScrapCounter` splits the number of scraps based on the item type.
 
-This mod splits item counts based solely on scan timing.
+This mod splits the number of scraps based solely on scan timing.
 
-`PsyKO345/ScrapCounter` uses GameObject hierarchy to exclude items on the cruiser, which may result in *more accurate* counts than vanilla.
+`PsyKO345/ScrapCounter` uses GameObject hierarchy to exclude items on the cruiser, which may result in *more accurate* count than vanilla.
 
-This mod counts items exactly like the vanilla terminal scan, which may result in *inaccurate* counts like vanilla.
+This mod counts items exactly like the vanilla terminal scan, which may result in *inaccurate* count like vanilla.
 
 `PsyKO345/ScrapCounter` displays the number of scraps using a custom UI element.
 
