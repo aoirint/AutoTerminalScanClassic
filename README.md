@@ -16,10 +16,8 @@ dotnet restore --locked-mode
 
 ## Code format
 
-Use C# 13.0 syntax and features that are compatible with .NET Standard 2.1.
-
-- <https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-13>
-- <https://learn.microsoft.com/en-us/dotnet/standard/net-standard?tabs=net-standard-2-1>
+- Language version: [C# 13.0](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-13)
+- Target framework: [.NET standard 2.1](https://learn.microsoft.com/en-us/dotnet/standard/net-standard?tabs=net-standard-2-1)
 
 ```powershell
 dotnet format

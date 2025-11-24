@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <!-- Target framework. https://learn.microsoft.com/en-us/dotnet/standard/frameworks -->
     <TargetFramework>netstandard2.1</TargetFramework>
     <!-- DLL name / Mod GUID -->
     <AssemblyName>com.aoirint.AutoTerminalScanClassic</AssemblyName>
