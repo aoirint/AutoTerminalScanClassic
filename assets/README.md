@@ -6,7 +6,7 @@ This mod works for v73+. Maybe works for the earlier versions, but not tested.
 
 ## What it does
 
-- Daily automatic terminal scan: At the start of each day, scans the number of scraps on the moon and sends it to the chat like `19 4`.
+- Daily Automatic Terminal Scan: At the start of each day, scans the number of scraps on the moon and sends it to the chat like `19 4` (`19` indoor scraps, `4` outdoor scraps but maybe inaccurate like vanilla).
 
 ## Who needs to install
 
