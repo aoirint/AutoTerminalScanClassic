@@ -3,7 +3,6 @@
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
-using AutoTerminalScanClassic.Generated;
 using AutoTerminalScanClassic.Managers;
 using BepInEx.Configuration;
 
@@ -16,13 +15,13 @@ public enum BroadcastMode
     Always
 }
 
-[BepInPlugin(ModInfo.GUID, ModInfo.NAME, ModInfo.VERSION)]
+[BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 [BepInProcess("Lethal Company.exe")]
 public class AutoTerminalScanClassic : BaseUnityPlugin
 {
     internal static new ManualLogSource? Logger { get; private set; }
 
-    internal static Harmony harmony = new(ModInfo.GUID);
+    internal static Harmony harmony = new(MyPluginInfo.PLUGIN_GUID);
 
     internal static AutoTerminalScanManager AutoTerminalScanManager { get; } = new();
 
@@ -53,6 +52,6 @@ public class AutoTerminalScanClassic : BaseUnityPlugin
 
         harmony.PatchAll();
 
-        Logger.LogInfo($"Plugin {ModInfo.NAME} v{ModInfo.VERSION} is loaded!");
+        Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_NAME} v{MyPluginInfo.PLUGIN_VERSION} is loaded!");
     }
 }
