@@ -55,3 +55,10 @@ This mod counts items exactly like the vanilla terminal scan, which may result i
 `PsyKO345/ScrapCounter` displays the number of scraps using a custom UI element.
 
 This mod sends the number of scraps to the chat.
+
+## Differences from [matsuura/AutoScan](https://thunderstore.io/c/lethal-company/p/matsuura/AutoScan/)
+
+`matsuura/AutoScan` updates the number of scraps when players collect scraps into the ship.
+Maybe affected by Nutcracker shotguns, Butler knives, and Maneater feeding during the day.
+
+This mod only calculates the number of scraps at the start of each day and does not update after that.
