@@ -28,9 +28,9 @@ So it's recommended for the host to install this mod and ask other players to co
 
 This mod splits item counts based solely on scan timing.
 
-`abu/AutoScan` uses GameObject hierarchy to exclude items on the ship and cruiser, which may result in *more accurate* counts than vanilla (e.g., scrap on an unmagnetized cruiser will be excluded).
+`abu/AutoScan` uses GameObject hierarchy to exclude items on the ship and cruiser, which may result in *more accurate* counts than vanilla.
 
-This mod counts items exactly like the vanilla terminal scan, which may result in *inaccurate* counts like vanilla (e.g., scrap on an unmagnetized cruiser will be included).
+This mod counts items exactly like the vanilla terminal scan, which may result in *inaccurate* counts like vanilla.
 
 ## Differences from [Happyness/AutoTerminalScan](https://thunderstore.io/c/lethal-company/p/Happyness/AutoTerminalScan/)
 
@@ -48,9 +48,9 @@ This mod only reports item counts.
 
 This mod splits item counts based solely on scan timing.
 
-`PsyKO345/ScrapCounter` uses GameObject hierarchy to exclude items on the cruiser, which may result in *more accurate* counts than vanilla (e.g., scrap on an unmagnetized cruiser will be excluded).
+`PsyKO345/ScrapCounter` uses GameObject hierarchy to exclude items on the cruiser, which may result in *more accurate* counts than vanilla.
 
-This mod counts items exactly like the vanilla terminal scan, which may result in *inaccurate* counts like vanilla (e.g., scrap on an unmagnetized cruiser will be included).
+This mod counts items exactly like the vanilla terminal scan, which may result in *inaccurate* counts like vanilla.
 
 `PsyKO345/ScrapCounter` displays scrap counts using a custom UI element.
 
