@@ -4,9 +4,9 @@
 
 ## Development
 
-Install .NET SDK 9.0.
+Install .NET SDK 10.0 or later.
 
-- <https://dotnet.microsoft.com/en-us/download/dotnet/9.0>
+- <https://dotnet.microsoft.com/en-us/download/dotnet/10.0>
 
 Restore NuGet packages.
 
@@ -15,6 +15,11 @@ dotnet restore --locked-mode
 ```
 
 ## Code format
+
+Use C# 13.0 syntax and features that are compatible with .NET Standard 2.1.
+
+- <https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-13>
+- <https://learn.microsoft.com/en-us/dotnet/standard/net-standard?tabs=net-standard-2-1>
 
 ```powershell
 dotnet format
