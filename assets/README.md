@@ -52,6 +52,6 @@ This mod splits item counts based solely on scan timing.
 
 This mod counts items exactly like the vanilla terminal scan, which may result in *inaccurate* counts like vanilla.
 
-`PsyKO345/ScrapCounter` displays scrap counts using a custom UI element.
+`PsyKO345/ScrapCounter` displays the number of scraps using a custom UI element.
 
-This mod sends scrap counts to the chat.
+This mod sends the number of scraps to the chat.
