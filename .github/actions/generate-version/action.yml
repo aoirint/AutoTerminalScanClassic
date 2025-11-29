@@ -88,5 +88,5 @@ runs:
       shell: bash
       run: |
         APP_VERSION="${{ steps.app-version.outputs.version }}"
-        jq --arg ver "${APP_VERSION}" '.version_number = $ver' Assets/manifest.json > Assets/manifest.tmp.json
-        mv Assets/manifest.tmp.json Assets/manifest.json
+        jq --arg ver "${APP_VERSION}" '.version_number = $ver' assets_/manifest.json > assets_/manifest.tmp.json
+        mv assets_/manifest.tmp.json assets_/manifest.json
