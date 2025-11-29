@@ -2,7 +2,7 @@
 
 A Lethal Company mod that scans the number of scraps on the moon and sends it to the chat at the start of each day, just like the terminal scan technique.
 
-- [User guide](./assets_/README.md)
+- [User guide](./assets/README.md)
 
 ## Development
 
