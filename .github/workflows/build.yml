@@ -61,10 +61,10 @@ jobs:
 
           mv ./AutoTerminalScanClassic/bin/Release/netstandard2.1/com.aoirint.AutoTerminalScanClassic.dll  "${TMP_ARTIFACT_DIR}/${ARTIFACT_STEM}/"
 
-          cp ./Assets_/manifest.json  "${TMP_ARTIFACT_DIR}/${ARTIFACT_STEM}/manifest.json"
-          cp ./Assets_/icon.png  "${TMP_ARTIFACT_DIR}/${ARTIFACT_STEM}/"
-          cp ./Assets_/README.md  "${TMP_ARTIFACT_DIR}/${ARTIFACT_STEM}/"
-          cp ./Assets_/CHANGELOG.md  "${TMP_ARTIFACT_DIR}/${ARTIFACT_STEM}/"
+          cp ./Assets/manifest.json  "${TMP_ARTIFACT_DIR}/${ARTIFACT_STEM}/manifest.json"
+          cp ./Assets/icon.png  "${TMP_ARTIFACT_DIR}/${ARTIFACT_STEM}/"
+          cp ./Assets/README.md  "${TMP_ARTIFACT_DIR}/${ARTIFACT_STEM}/"
+          cp ./Assets/CHANGELOG.md  "${TMP_ARTIFACT_DIR}/${ARTIFACT_STEM}/"
           cp ./LICENSE  "${TMP_ARTIFACT_DIR}/${ARTIFACT_STEM}/"
 
           cd "${TMP_ARTIFACT_DIR}/${ARTIFACT_STEM}"
