@@ -62,3 +62,13 @@ This mod counts scraps exactly like the vanilla terminal scan, which may result 
 `PsyKO345/ScrapCounter` displays the number of scraps using a custom UI element.
 
 This mod sends the number of scraps to the chat.
+
+## Differences from [MrListivn/LandingLootToChat](https://thunderstore.io/c/lethal-company/p/MrListivn/LandingLootToChat/)
+
+`MrListivn/LandingLootToChat` splits the number of scraps based on the item type. e.g., one handed, two handed, bee hives.
+
+This mod splits the number of scraps based solely on scan timing.
+
+`MrListivn/LandingLootToChat` reports dungeon type information.
+
+This mod only reports the number of scraps.
