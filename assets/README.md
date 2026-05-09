@@ -14,9 +14,10 @@ to the chat at the start of each day, just like the terminal scan technique.
 
 - Daily Automatic Terminal Scan: at the start of each day, scans the number of
   scraps on the moon and sends it to the chat like `19 4`.
-    - `19` is the level-load scan count.
-    - `4` is the later difference after outdoor scrap can appear.
-    - The count intentionally follows vanilla terminal scan behavior, including
+    - `19` is the first scan count.
+    - `4` is the difference between the later scan count and the first scan
+      count.
+    - Both scans intentionally follow vanilla terminal scan behavior, including
       vanilla-style inaccuracies.
 
 ## Who needs to install
