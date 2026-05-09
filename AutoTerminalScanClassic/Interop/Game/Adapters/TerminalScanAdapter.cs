@@ -1,15 +1,20 @@
 #nullable enable
 
-using BepInEx.Logging;
+using AutoTerminalScanClassic.Core.Ports;
 using UnityEngine;
 
-namespace AutoTerminalScanClassic.Utils;
+namespace AutoTerminalScanClassic.Interop.Game.Adapters;
 
-internal static class TerminalUtils
+internal sealed class TerminalScanAdapter
 {
-    internal static ManualLogSource Logger => AutoTerminalScanClassic.Logger!;
+    private readonly IPluginLogger logger;
 
-    public static int? ScanItemCount()
+    public TerminalScanAdapter(IPluginLogger logger)
+    {
+        this.logger = logger;
+    }
+
+    public int? ScanItemCount()
     {
         var grabbableObjects = Object.FindObjectsOfType<GrabbableObject>();
 
@@ -19,18 +24,18 @@ internal static class TerminalUtils
             var itemProperties = grabbableObject.itemProperties;
             if (itemProperties == null)
             {
-                Logger.LogError("grabbableObject.itemProperties is null.");
+                logger.LogError("grabbableObject.itemProperties is null.");
                 return null;
             }
 
-            // Based on the terminal `scan` command logic in the base game
+            // Based on the terminal `scan` command logic in the base game.
             if (itemProperties.isScrap && !grabbableObject.isInShipRoom && !grabbableObject.isInElevator)
             {
                 scannedItemCount++;
             }
         }
 
-        Logger.LogDebug($"Scanned and found {scannedItemCount} items.");
+        logger.LogDebug($"Scanned and found {scannedItemCount} items.");
         return scannedItemCount;
     }
 }

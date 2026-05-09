@@ -1,10 +1,8 @@
 #nullable enable
 
 using BepInEx;
-using BepInEx.Logging;
-using HarmonyLib;
-using AutoTerminalScanClassic.Managers;
-using BepInEx.Configuration;
+using AutoTerminalScanClassic.Interop;
+using AutoTerminalScanClassic.Interop.Game.Patches;
 
 namespace AutoTerminalScanClassic;
 
@@ -19,39 +17,26 @@ public enum BroadcastMode
 [BepInProcess("Lethal Company.exe")]
 public class AutoTerminalScanClassic : BaseUnityPlugin
 {
-    internal static new ManualLogSource? Logger { get; private set; }
+    private static PluginController? controller;
 
-    internal static Harmony harmony = new(MyPluginInfo.PLUGIN_GUID);
-
-    internal static AutoTerminalScanManager AutoTerminalScanManager { get; } = new();
-
-    internal static ConfigEntry<bool>? EnabledConfig { get; private set; }
-
-    internal static ConfigEntry<BroadcastMode>? BroadcastModeConfig { get; private set; }
+    /// <summary>
+    /// Shared plugin controller used by game callback types constructed outside startup.
+    /// </summary>
+    internal static PluginController Controller => controller!;
 
     private void Awake()
     {
-        Logger = base.Logger;
+        var logger = new BepInExPluginLogger(base.Logger);
+        var config = BepInExPluginConfig.Bind(Config);
 
-        EnabledConfig = Config.Bind(
-            "General",
-            "Enabled",
-            true,
-            "Set to false to disable this mod."
+        controller = PluginController.Create(config: config, logger: logger);
+
+        // Startup order matters: construct the controller before patching so
+        // the first game callback can enter a fully wired plugin boundary.
+        HarmonyPatchInstaller.Install();
+
+        logger.LogInfo(
+            $"Plugin {MyPluginInfo.PLUGIN_NAME} v{MyPluginInfo.PLUGIN_VERSION} is loaded!"
         );
-
-        BroadcastModeConfig = Config.Bind(
-            "General",
-            "BroadcastMode",
-            BroadcastMode.SelfOnly,
-            "Controls whether this mod sends scan results to other players." +
-            " If SelfOnly, you can still see scan results but not send to other players." +
-            " If HostOnly, you send scan results to other players only when you are the host." +
-            " If Always, you always send scan results to other players."
-        );
-
-        harmony.PatchAll();
-
-        Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_NAME} v{MyPluginInfo.PLUGIN_VERSION} is loaded!");
     }
 }
