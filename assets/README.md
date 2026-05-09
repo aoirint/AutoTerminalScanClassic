@@ -19,8 +19,8 @@ to the chat at the start of each day, just like the terminal scan technique.
       generating.
     - `4` is *outdoor scrap*: the later scan count after outdoor entities have
       spawned, minus the *indoor scrap* count.
-    - Counts use the same scan logic as the in-game terminal, so they can share
-      its usual inaccuracies.
+    - Counts are based on the terminal scan technique, so they can include
+      terminal-scan-style inaccuracies.
 
 ## Who needs to install
 
