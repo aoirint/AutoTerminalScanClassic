@@ -71,11 +71,13 @@ internal sealed class PluginController
             roundCallbackHandler: new RoundCallbackHandler(
                 gameInterop: gameInterop,
                 logger: logger,
+                validationLogger: validationLogger,
                 resetScanForNewLevelUseCase: resetScanForNewLevelUseCase
             ),
             timeOfDayCallbackHandler: new TimeOfDayCallbackHandler(
                 gameInterop: gameInterop,
                 logger: logger,
+                validationLogger: validationLogger,
                 sendScanResultOnceUseCase: sendScanResultOnceUseCase
             )
         );

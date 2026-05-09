@@ -7,8 +7,10 @@ namespace AutoTerminalScanClassic.Core.Validation;
 
 internal enum ValidationLogScanResult
 {
+    AlreadySent,
     Disabled,
     MissingLevelLoadedScan,
+    NotClient,
     ScanFailed,
     Success
 }
@@ -161,8 +163,10 @@ internal sealed class ValidationLogRecord
     {
         return result switch
         {
+            ValidationLogScanResult.AlreadySent => "already_sent",
             ValidationLogScanResult.Disabled => "disabled",
             ValidationLogScanResult.MissingLevelLoadedScan => "missing_level_loaded_scan",
+            ValidationLogScanResult.NotClient => "not_client",
             ValidationLogScanResult.ScanFailed => "scan_failed",
             ValidationLogScanResult.Success => "success",
             _ => "unknown"

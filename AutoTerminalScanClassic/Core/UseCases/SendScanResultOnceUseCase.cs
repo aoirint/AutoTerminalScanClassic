@@ -44,6 +44,11 @@ internal sealed class SendScanResultOnceUseCase
     {
         if (scanState.HasSentChatToday)
         {
+            // SDC records no-op validation results as explicit outcomes. Keep
+            // ATSC's once-per-level guard visible for validation plans too.
+            validationLogger.Record(
+                ValidationLogRecord.HourAdvancedScanResult(ValidationLogScanResult.AlreadySent)
+            );
             return SendScanResultOnceResult.AlreadySent;
         }
 
