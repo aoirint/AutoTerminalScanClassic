@@ -19,9 +19,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
-- Documented the staged CJP/SDC `v0.2.x` migration policy for development,
-  quality checks, dependency updates, release automation, and Thunderstore
-  publication.
+- Documented repository maintenance guidance for development, quality checks,
+  dependency updates, release preparation, and Thunderstore package notes.
 - Updated package-facing compatibility documentation for the current Lethal
   Company v81.5 dependency baseline.
 
