@@ -33,11 +33,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Notes
 
 - Compatibility:
-    - The current migration work updates the compile and Thunderstore
-      dependency baseline to the same Lethal Company v81.5 package family used
-      by current CJP/SDC migration work.
-    - Real-game validation has not yet been performed for AutoTerminalScanClassic
-      on v81.5 as part of this staged migration.
+    - Compatible with Lethal Company v81.5 (2026-04-17 UTC, Manifest ID:
+      `6423525044216269478`).
+        - The v81.5 test environment used BepInExPack v5.4.2305.
+- Older Lethal Company versions are no longer claimed as tested by the current
+  v0.2.0 release notes; Lethal Company v73 compatibility is recorded in the
+  historical `v0.1.x` release entries below.
 
 ## v0.1.2 - 2025-11-24 UTC
 
@@ -50,8 +51,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Compatibility:
     - Compatible with Lethal Company v73 (2025-10-04 UTC, Manifest ID:
       `1749099131234587692`).
-    - This compatibility metadata was backfilled while preparing the CJP/SDC
-      `v0.2.x` migration plan.
+        - Backfilled as reference compatibility information while preparing
+          the v0.2.0 release.
 
 ## v0.1.1 - 2025-11-23 UTC
 
@@ -64,5 +65,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Compatibility:
     - Compatible with Lethal Company v73 (2025-10-04 UTC, Manifest ID:
       `1749099131234587692`).
-    - This compatibility metadata was backfilled while preparing the CJP/SDC
-      `v0.2.x` migration plan.
+        - Backfilled as reference compatibility information while preparing
+          the v0.2.0 release.
