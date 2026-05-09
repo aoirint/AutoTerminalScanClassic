@@ -2,6 +2,7 @@
 
 using AutoTerminalScanClassic.Core.Ports;
 using AutoTerminalScanClassic.Core.State;
+using AutoTerminalScanClassic.Core.Validation;
 
 namespace AutoTerminalScanClassic.Core.UseCases;
 
@@ -10,18 +11,21 @@ internal sealed class SendScanResultOnceUseCase
     private readonly IGameInterop gameInterop;
     private readonly IPluginConfig config;
     private readonly IPluginLogger logger;
+    private readonly IValidationLogger validationLogger;
     private readonly ScanState scanState;
 
     public SendScanResultOnceUseCase(
         IGameInterop gameInterop,
         IPluginConfig config,
         IPluginLogger logger,
+        IValidationLogger validationLogger,
         ScanState scanState
     )
     {
         this.gameInterop = gameInterop;
         this.config = config;
         this.logger = logger;
+        this.validationLogger = validationLogger;
         this.scanState = scanState;
     }
 
@@ -36,12 +40,20 @@ internal sealed class SendScanResultOnceUseCase
         {
             scanState.MarkSent();
             logger.LogDebug("Not enabled.");
+            validationLogger.Record(
+                ValidationLogRecord.HourAdvancedScanResult(ValidationLogScanResult.Disabled)
+            );
             return SendScanResultOnceResult.Disabled;
         }
 
         if (scanState.ItemCountOnLevelLoaded == null)
         {
             logger.LogError("itemCountOnLevelLoaded is null.");
+            validationLogger.Record(
+                ValidationLogRecord.HourAdvancedScanResult(
+                    ValidationLogScanResult.MissingLevelLoadedScan
+                )
+            );
             return SendScanResultOnceResult.MissingLevelLoadedScan;
         }
         var itemCountOnLevelLoaded = scanState.ItemCountOnLevelLoaded.Value;
@@ -50,6 +62,9 @@ internal sealed class SendScanResultOnceUseCase
         if (itemCountOnHourAdvancedNullable == null)
         {
             logger.LogError("itemCountOnHourAdvanced is null.");
+            validationLogger.Record(
+                ValidationLogRecord.HourAdvancedScanResult(ValidationLogScanResult.ScanFailed)
+            );
             return SendScanResultOnceResult.ScanFailed;
         }
         var itemCountOnHourAdvanced = itemCountOnHourAdvancedNullable.Value;
@@ -62,9 +77,25 @@ internal sealed class SendScanResultOnceUseCase
             $" itemCountOnHourAdvanced={itemCountOnHourAdvanced}" +
             $" itemCountDifference={itemCountDifference}"
         );
+        validationLogger.Record(
+            ValidationLogRecord.HourAdvancedScanResult(
+                result: ValidationLogScanResult.Success,
+                itemCountOnLevelLoaded: itemCountOnLevelLoaded,
+                itemCountOnHourAdvanced: itemCountOnHourAdvanced,
+                itemCountDifference: itemCountDifference
+            )
+        );
 
         var message = $"{itemCountOnLevelLoaded} {itemCountDifference}";
-        var sendChatSuccess = SendChat(target: SelectChatTarget(config.BroadcastMode), message: message);
+        var target = SelectChatTarget(config.BroadcastMode);
+        var sendChatSuccess = SendChat(target: target, message: message);
+        validationLogger.Record(
+            ValidationLogRecord.ChatSendResult(
+                broadcastMode: config.BroadcastMode,
+                target: target,
+                success: sendChatSuccess
+            )
+        );
 
         if (!sendChatSuccess)
         {

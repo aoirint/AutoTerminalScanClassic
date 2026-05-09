@@ -33,6 +33,7 @@ players to configure their own installs not to send duplicate scan results.
 | :--- | :--- | :------ | :---------- |
 | `Enabled` | bool | true | Set to false to disable this mod. |
 | `BroadcastMode` | enum | SelfOnly | Controls whether this mod sends scan results to other players. `SelfOnly` shows scan results only to you. `HostOnly` sends scan results to other players only when you are the host. `Always` always sends scan results to other players. |
+| `ValidationLogging` | bool | false | Debug option for structured release-validation logs. Leave this disabled unless you are collecting validation evidence. |
 
 ## Differences from [matsuura/AutoScan](https://thunderstore.io/c/lethal-company/p/matsuura/AutoScan/)
 

@@ -11,6 +11,9 @@ internal static class RoundManagerPatch
     [HarmonyPostfix]
     public static void FinishGeneratingNewLevelClientRpcPostfix()
     {
-        AutoTerminalScanClassic.Controller.HandleFinishGeneratingNewLevelClientRpc();
+        HarmonyCallbackGuard.TryNotifyHarmonyCallback(
+            callback: HarmonyCallbackTokens.RoundManagerFinishGeneratingNewLevelClientRpcPostfix,
+            notify: AutoTerminalScanClassic.Controller.HandleFinishGeneratingNewLevelClientRpc
+        );
     }
 }

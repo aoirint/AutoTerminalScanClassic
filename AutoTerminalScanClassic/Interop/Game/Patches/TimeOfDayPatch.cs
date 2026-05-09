@@ -19,6 +19,9 @@ internal static class TimeOfDayPatch
             return;
         }
 
-        AutoTerminalScanClassic.Controller.HandleMoveTimeOfDay();
+        HarmonyCallbackGuard.TryNotifyHarmonyCallback(
+            callback: HarmonyCallbackTokens.TimeOfDayMoveTimeOfDayPostfix,
+            notify: AutoTerminalScanClassic.Controller.HandleMoveTimeOfDay
+        );
     }
 }

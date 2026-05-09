@@ -7,4 +7,6 @@ internal interface IPluginConfig
     bool Enabled { get; }
 
     BroadcastMode BroadcastMode { get; }
+
+    bool ValidationLogging { get; }
 }

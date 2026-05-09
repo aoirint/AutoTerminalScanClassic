@@ -327,6 +327,26 @@ because Thunderstore does not support them.**
 
 ## Debugging
 
+### Validation logging
+
+Structured validation logs are disabled by default. To enable them for release
+validation, open the generated AutoTerminalScanClassic config file and set:
+
+```ini
+[Debug]
+ValidationLogging = true
+```
+
+Enabled validation records use one JSON object per log line after the stable
+`[ATSC_VALIDATION]` prefix. Share only the relevant `[ATSC_VALIDATION]` lines
+plus nearby AutoTerminalScanClassic error lines when asking for validation help.
+
+Validation records intentionally avoid player names, lobby identifiers, account
+identifiers, machine names, profile paths, tokens, and raw Unity object details.
+Harmony callback failures that are intentionally swallowed may emit
+`callback_exception` validation records. These records include only the stable
+callback token and exception type.
+
 ### r2modman
 
 1. Open [r2modman][r2modman-package].

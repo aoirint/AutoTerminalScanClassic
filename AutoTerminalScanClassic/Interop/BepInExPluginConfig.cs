@@ -9,19 +9,24 @@ internal sealed class BepInExPluginConfig : IPluginConfig
 {
     private readonly ConfigEntry<bool> enabledConfig;
     private readonly ConfigEntry<BroadcastMode> broadcastModeConfig;
+    private readonly ConfigEntry<bool> validationLoggingConfig;
 
     private BepInExPluginConfig(
         ConfigEntry<bool> enabledConfig,
-        ConfigEntry<BroadcastMode> broadcastModeConfig
+        ConfigEntry<BroadcastMode> broadcastModeConfig,
+        ConfigEntry<bool> validationLoggingConfig
     )
     {
         this.enabledConfig = enabledConfig;
         this.broadcastModeConfig = broadcastModeConfig;
+        this.validationLoggingConfig = validationLoggingConfig;
     }
 
     public bool Enabled => enabledConfig.Value;
 
     public BroadcastMode BroadcastMode => broadcastModeConfig.Value;
+
+    public bool ValidationLogging => validationLoggingConfig.Value;
 
     public static BepInExPluginConfig Bind(ConfigFile config)
     {
@@ -42,9 +47,17 @@ internal sealed class BepInExPluginConfig : IPluginConfig
             " If Always, you always send scan results to other players."
         );
 
+        var validationLoggingConfig = config.Bind(
+            "Debug",
+            "ValidationLogging",
+            false,
+            "Enable structured validation logs for release validation and troubleshooting."
+        );
+
         return new BepInExPluginConfig(
             enabledConfig: enabledConfig,
-            broadcastModeConfig: broadcastModeConfig
+            broadcastModeConfig: broadcastModeConfig,
+            validationLoggingConfig: validationLoggingConfig
         );
     }
 }
