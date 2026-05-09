@@ -19,8 +19,7 @@ to the chat at the start of each day, just like the terminal scan technique.
       generating.
     - `4` is *outdoor scrap*: the later scan count after outdoor entities have
       spawned, minus the *indoor scrap* count.
-    - Counts are based on the terminal scan technique, so they can include
-      terminal-scan-style inaccuracies.
+    - Counts may be inaccurate like the vanilla terminal scan.
 
 ## Who needs to install
 
@@ -28,7 +27,7 @@ Client-side only. The host does not need to install this mod.
 
 However, any client may send their own scan results to the chat, which may spam
 the chat. It is recommended for the host to install this mod and ask other
-players to configure their own installs not to send duplicate scan results.
+players to configure their own installs not to send their own scan results.
 
 ## Configuration
 
