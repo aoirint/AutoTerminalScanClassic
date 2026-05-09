@@ -5,6 +5,13 @@ using GameNetcodeStuff;
 
 namespace AutoTerminalScanClassic.Interop.Game.Adapters;
 
+/// <summary>
+/// Owns base-game chat APIs for local-only and server-routed scan messages.
+/// </summary>
+/// <remarks>
+/// Core chooses the target; this adapter resolves HUD/player singletons and
+/// calls the specific chat API that preserves the configured delivery scope.
+/// </remarks>
 internal sealed class ChatAdapter
 {
     private readonly IPluginLogger logger;
@@ -29,6 +36,8 @@ internal sealed class ChatAdapter
             return false;
         }
 
+        // AddChatMessage updates only this client's HUD, preserving SelfOnly
+        // and non-host HostOnly behavior without touching server chat state.
         hudManager.AddChatMessage(
             message,
             localPlayerController.playerUsername
@@ -52,6 +61,8 @@ internal sealed class ChatAdapter
             return false;
         }
 
+        // AddTextToChatOnServer mirrors normal player chat routing and uses the
+        // local player's client ID so the message appears under their name.
         hudManager.AddTextToChatOnServer(
             message,
             (int)localPlayerController.playerClientId
