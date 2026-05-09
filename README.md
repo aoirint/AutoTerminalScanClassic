@@ -342,10 +342,11 @@ Enabled validation records use one JSON object per log line after the stable
 plus nearby AutoTerminalScanClassic error lines when asking for validation help.
 
 Validation records intentionally avoid player names, lobby identifiers, account
-identifiers, machine names, profile paths, tokens, and raw Unity object details.
+identifiers, machine names, profile paths, access or session tokens, and raw
+Unity object details.
 Harmony callback failures that are intentionally swallowed may emit
-`callback_exception` validation records. These records include only the stable
-callback token and exception type.
+`callback_exception` validation records.
+These records include only the stable callback token and exception type.
 
 ### r2modman
 

@@ -17,8 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   separate from Thunderstore-facing release notes.
 - Added opt-in structured validation logging for release-candidate checks.
   Validation logging is disabled by default and avoids player names, lobby
-  identifiers, account identifiers, machine names, profile paths, tokens, and
-  raw Unity object details.
+  identifiers, account identifiers, machine names, profile paths, access or
+  session tokens, and raw Unity object details.
+- Added Harmony callback diagnostics that log compact exception type metadata
+  without allowing diagnostic failures to break base-game callbacks.
 
 ### Changed
 
@@ -27,8 +29,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   publication.
 - Updated package-facing compatibility metadata for the current Lethal Company
   v81.5 dependency baseline.
-- Added Harmony callback diagnostics that log compact exception type metadata
-  without allowing diagnostic failures to break base-game callbacks.
 
 ### Notes
 
