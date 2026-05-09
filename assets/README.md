@@ -13,9 +13,12 @@ to the chat at the start of each day, just like the terminal scan technique.
 ## What it does
 
 - Daily Automatic Terminal Scan: at the start of each day, scans the number of
-  indoor and outdoor scraps on the moon and sends them to the chat like `19 4`.
+  indoor and outdoor scraps on the moon and sends them to the chat like `19 4`,
+  where `19` is indoor scrap and `4` is outdoor scrap.
   The counts follow vanilla terminal scan behavior, including vanilla-style
   inaccuracies.
+  Note: the outdoor count is calculated from the difference between two scan
+  results, so it is an estimate rather than a separate outdoor-only scan.
 
 ## Who needs to install
 
