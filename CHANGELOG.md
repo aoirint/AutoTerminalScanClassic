@@ -3,8 +3,9 @@
 All notable changes to this project are documented in this file.
 
 This changelog is the canonical developer-facing release history. The
-Thunderstore-facing package changelog in `assets/CHANGELOG.md` is derived from
-stable entries in this file and rewritten for users.
+Thunderstore-facing package changelog in `assets/CHANGELOG.md` should be
+derived from stable entries in this file and rewritten for users when preparing
+future stable releases.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
@@ -21,8 +22,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Documented the staged CJP/SDC `v0.2.x` migration policy for development,
   quality checks, dependency updates, release automation, and Thunderstore
   publication.
-- Updated package-facing compatibility metadata for the current Lethal Company
-  v81.5 dependency baseline.
+- Updated package-facing compatibility documentation for the current Lethal
+  Company v81.5 dependency baseline.
 
 ### Notes
 
