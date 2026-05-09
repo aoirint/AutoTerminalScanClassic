@@ -5,6 +5,9 @@ using BepInEx.Logging;
 
 namespace AutoTerminalScanClassic.Interop;
 
+/// <summary>
+/// Routes plugin log messages through BepInEx at the edge of the plugin.
+/// </summary>
 internal sealed class BepInExPluginLogger : IPluginLogger
 {
     private readonly ManualLogSource logger;

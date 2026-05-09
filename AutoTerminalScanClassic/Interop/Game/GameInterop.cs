@@ -5,6 +5,13 @@ using AutoTerminalScanClassic.Interop.Game.Adapters;
 
 namespace AutoTerminalScanClassic.Interop.Game;
 
+/// <summary>
+/// Game-facing implementation of the mod operations requested by Core.
+/// </summary>
+/// <remarks>
+/// Presents one ATSC-oriented surface while focused adapters handle networking,
+/// terminal scan counting, and chat delivery.
+/// </remarks>
 internal sealed class GameInterop : IGameInterop
 {
     private readonly NetworkAdapter networkAdapter;
@@ -13,6 +20,8 @@ internal sealed class GameInterop : IGameInterop
 
     public GameInterop(IPluginLogger logger)
     {
+        // Keep adapters split by Unity responsibility so Core behavior can be
+        // reviewed independently from singleton lookup and HUD/chat mechanics.
         networkAdapter = new NetworkAdapter(logger);
         terminalScanAdapter = new TerminalScanAdapter(logger);
         chatAdapter = new ChatAdapter(logger);

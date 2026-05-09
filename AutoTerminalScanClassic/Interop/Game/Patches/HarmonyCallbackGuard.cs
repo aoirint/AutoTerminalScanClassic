@@ -19,6 +19,9 @@ internal static class HarmonyCallbackGuard
     /// <summary>
     /// Runs a patch notification and records diagnostics if the callback throws.
     /// </summary>
+    /// <returns>
+    /// Whether the controller notification completed without throwing.
+    /// </returns>
     public static bool TryNotifyHarmonyCallback(string callback, Action notify)
     {
         try

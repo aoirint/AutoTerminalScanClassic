@@ -16,6 +16,10 @@ internal enum ValidationLogScanResult
 /// <summary>
 /// Immutable validation event description with stable event names and fields.
 /// </summary>
+/// <remarks>
+/// The factories keep call sites tied to ATSC domain events while this type
+/// centralizes the external schema, token spelling, and privacy boundary.
+/// </remarks>
 internal sealed class ValidationLogRecord
 {
     // Call sites choose semantic events through named factories; this type owns
@@ -30,6 +34,9 @@ internal sealed class ValidationLogRecord
 
     public Dictionary<string, object?>? Fields { get; }
 
+    /// <summary>
+    /// Describes plugin startup configuration without including local environment details.
+    /// </summary>
     public static ValidationLogRecord PluginLoaded(
         string version,
         bool validationLogging,
@@ -54,6 +61,9 @@ internal sealed class ValidationLogRecord
         return new("controller_created");
     }
 
+    /// <summary>
+    /// Describes a swallowed Harmony callback exception using stable diagnostic fields.
+    /// </summary>
     public static ValidationLogRecord CallbackException(string callback, string exceptionType)
     {
         return new(
@@ -113,6 +123,8 @@ internal sealed class ValidationLogRecord
         int? itemCount = null
     )
     {
+        // Scan events share the same result token and optional count field so
+        // release checks can compare level-load and delayed scans consistently.
         return new()
         {
             ["result"] = ToScanResultToken(result),
@@ -122,6 +134,8 @@ internal sealed class ValidationLogRecord
 
     private static string ToBroadcastModeToken(BroadcastMode broadcastMode)
     {
+        // Config enum names are user-facing, but validation logs use
+        // lower_snake_case tokens for schema stability across C# renames.
         return broadcastMode switch
         {
             BroadcastMode.SelfOnly => "self_only",
@@ -133,6 +147,8 @@ internal sealed class ValidationLogRecord
 
     private static string ToChatSendTargetToken(ChatSendTarget target)
     {
+        // Unknown enum values fall back to schema-safe tokens instead of
+        // leaking numeric values into validation output.
         return target switch
         {
             ChatSendTarget.SelfOnly => "self_only",

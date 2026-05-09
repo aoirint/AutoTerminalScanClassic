@@ -5,6 +5,13 @@ using BepInEx.Configuration;
 
 namespace AutoTerminalScanClassic.Interop;
 
+/// <summary>
+/// Binds BepInEx configuration entries and exposes them through the Core config port.
+/// </summary>
+/// <remarks>
+/// ConfigEntry values stay live, so Core reads the current user configuration
+/// without depending on BepInEx types.
+/// </remarks>
 internal sealed class BepInExPluginConfig : IPluginConfig
 {
     private readonly ConfigEntry<bool> enabledConfig;
@@ -28,6 +35,9 @@ internal sealed class BepInExPluginConfig : IPluginConfig
 
     public bool ValidationLogging => validationLoggingConfig.Value;
 
+    /// <summary>
+    /// Creates the plugin configuration entries used by the scan workflow.
+    /// </summary>
     public static BepInExPluginConfig Bind(ConfigFile config)
     {
         var enabledConfig = config.Bind(
@@ -37,6 +47,8 @@ internal sealed class BepInExPluginConfig : IPluginConfig
             "Set to false to disable this mod."
         );
 
+        // BroadcastMode names are intentionally described in the config text
+        // because the enum is the user's stable behavior-selection surface.
         var broadcastModeConfig = config.Bind(
             "General",
             "BroadcastMode",
@@ -47,6 +59,8 @@ internal sealed class BepInExPluginConfig : IPluginConfig
             " If Always, you always send scan results to other players."
         );
 
+        // Keep validation logging opt-in because it is intended for focused
+        // release checks and produces machine-readable lines in normal logs.
         var validationLoggingConfig = config.Bind(
             "Debug",
             "ValidationLogging",

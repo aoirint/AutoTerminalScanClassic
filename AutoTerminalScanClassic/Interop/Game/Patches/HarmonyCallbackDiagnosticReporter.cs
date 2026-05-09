@@ -6,6 +6,13 @@ using AutoTerminalScanClassic.Core.Validation;
 
 namespace AutoTerminalScanClassic.Interop.Game.Patches;
 
+/// <summary>
+/// Emits diagnostics for Harmony callback exceptions swallowed at the patch boundary.
+/// </summary>
+/// <remarks>
+/// The guard owns exception handling; this reporter only translates a caught
+/// exception into compact log text and a structured validation event.
+/// </remarks>
 internal sealed class HarmonyCallbackDiagnosticReporter
 {
     private readonly IPluginLogger logger;
