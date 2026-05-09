@@ -1,12 +1,14 @@
 # AutoTerminalScanClassic
 
-A Lethal Company mod that scans the number of scraps on the moon and sends it to the chat at the start of each day, just like the terminal scan technique.
+A Lethal Company mod that scans the number of scraps on the moon and sends it to the chat at the start of
+each day, just like the terminal scan technique.
 
 This mod works for v73+. Maybe works for the earlier versions, but not tested.
 
 ## What it does
 
-- Daily Automatic Terminal Scan: At the start of each day, scans the number of scraps on the moon and sends it to the chat like `19 4` (`19` indoor scraps, `4` outdoor scraps but maybe inaccurate like vanilla).
+- Daily Automatic Terminal Scan: At the start of each day, scans the number of scraps on the moon and sends
+  it to the chat like `19 4` (`19` indoor scraps, `4` outdoor scraps but maybe inaccurate like vanilla).
 
 ## Who needs to install
 
@@ -18,7 +20,7 @@ So it's recommended for the host to install this mod and ask other players to co
 ## Configuration
 
 | Name | Type | Default | Description |
-|:--------|:-----|:--------|:------------|
+| :------ | :--- | :------ | :---------- |
 | Enabled | bool | true | Set to false to disable this mod. |
 | BroadcastMode | enum | SelfOnly | Controls whether this mod sends scan results to other players. If SelfOnly, you can still see scan results but not send to other players. If HostOnly, you send scan results to other players only when you are the host. If Always, you always send scan results to other players. |
 
@@ -35,13 +37,15 @@ This mod only calculates the number of scraps at the start of each day and does 
 
 This mod splits the number of scraps based solely on scan timing.
 
-`abu/AutoScan` uses GameObject hierarchy to exclude scraps on the ship and the cruiser, which may result in *more accurate* count than vanilla.
+`abu/AutoScan` uses GameObject hierarchy to exclude scraps on the ship and the cruiser, which may result in
+*more accurate* count than vanilla.
 
 This mod counts scraps exactly like the vanilla terminal scan, which may result in *inaccurate* count like vanilla.
 
 ## Differences from [Happyness/AutoTerminalScan](https://thunderstore.io/c/lethal-company/p/Happyness/AutoTerminalScan/)
 
-`Happyness/AutoTerminalScan` reports the number of scraps categorized by the item type. e.g., indoor scrap, bee hives, bird presence.
+`Happyness/AutoTerminalScan` reports the number of scraps categorized by the item type. e.g., indoor scrap,
+bee hives, bird presence.
 
 This mod splits the number of scraps based solely on scan timing.
 
@@ -55,7 +59,8 @@ This mod only reports the number of scraps.
 
 This mod splits the number of scraps based solely on scan timing.
 
-`PsyKO345/ScrapCounter` uses GameObject hierarchy to exclude scraps on the cruiser, which may result in *more accurate* count than vanilla.
+`PsyKO345/ScrapCounter` uses GameObject hierarchy to exclude scraps on the cruiser, which may result in
+*more accurate* count than vanilla.
 
 This mod counts scraps exactly like the vanilla terminal scan, which may result in *inaccurate* count like vanilla.
 
