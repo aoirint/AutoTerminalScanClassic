@@ -11,6 +11,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+## v0.2.0-alpha.1 - 2026-05-09 UTC
+
 ### Added
 
 - Added a canonical developer changelog so future release preparation can keep
@@ -39,6 +41,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Older Lethal Company versions are no longer claimed as tested by the current
   v0.2.0 release notes; Lethal Company v73 compatibility is recorded in the
   historical `v0.1.x` release entries below.
+- This is the first `v0.2.0` alpha artifact for release-candidate validation.
+  Real-game alpha validation still needs to be performed against the packaged
+  artifact in #11 before stable release preparation starts.
+- Prerelease artifacts are GitHub-only; Thunderstore publication remains
+  limited to stable releases.
 
 ## v0.1.2 - 2025-11-24 UTC
 
