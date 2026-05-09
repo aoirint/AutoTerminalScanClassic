@@ -2,6 +2,7 @@
 
 using AutoTerminalScanClassic.Core.Ports;
 using AutoTerminalScanClassic.Core.State;
+using AutoTerminalScanClassic.Core.Validation;
 
 namespace AutoTerminalScanClassic.Core.UseCases;
 
@@ -18,18 +19,21 @@ internal sealed class SendScanResultOnceUseCase
     private readonly IGameInterop gameInterop;
     private readonly IPluginConfig config;
     private readonly IPluginLogger logger;
+    private readonly IValidationLogger validationLogger;
     private readonly ScanState scanState;
 
     public SendScanResultOnceUseCase(
         IGameInterop gameInterop,
         IPluginConfig config,
         IPluginLogger logger,
+        IValidationLogger validationLogger,
         ScanState scanState
     )
     {
         this.gameInterop = gameInterop;
         this.config = config;
         this.logger = logger;
+        this.validationLogger = validationLogger;
         this.scanState = scanState;
     }
 
@@ -40,6 +44,11 @@ internal sealed class SendScanResultOnceUseCase
     {
         if (scanState.HasSentChatToday)
         {
+            // SDC records no-op validation results as explicit outcomes. Keep
+            // ATSC's once-per-level guard visible for validation plans too.
+            validationLogger.Record(
+                ValidationLogRecord.HourAdvancedScanResult(ValidationLogScanResult.AlreadySent)
+            );
             return SendScanResultOnceResult.AlreadySent;
         }
 
@@ -49,6 +58,9 @@ internal sealed class SendScanResultOnceUseCase
             // manager did, preventing repeated debug logs on every time tick.
             scanState.MarkSent();
             logger.LogDebug("Not enabled.");
+            validationLogger.Record(
+                ValidationLogRecord.HourAdvancedScanResult(ValidationLogScanResult.Disabled)
+            );
             return SendScanResultOnceResult.Disabled;
         }
 
@@ -58,6 +70,11 @@ internal sealed class SendScanResultOnceUseCase
             // valid count; sending a delta from only the second scan would be
             // misleading, so leave the state retryable for diagnostics.
             logger.LogError("itemCountOnLevelLoaded is null.");
+            validationLogger.Record(
+                ValidationLogRecord.HourAdvancedScanResult(
+                    ValidationLogScanResult.MissingLevelLoadedScan
+                )
+            );
             return SendScanResultOnceResult.MissingLevelLoadedScan;
         }
         var itemCountOnLevelLoaded = scanState.ItemCountOnLevelLoaded.Value;
@@ -66,6 +83,9 @@ internal sealed class SendScanResultOnceUseCase
         if (itemCountOnHourAdvancedNullable == null)
         {
             logger.LogError("itemCountOnHourAdvanced is null.");
+            validationLogger.Record(
+                ValidationLogRecord.HourAdvancedScanResult(ValidationLogScanResult.ScanFailed)
+            );
             return SendScanResultOnceResult.ScanFailed;
         }
         var itemCountOnHourAdvanced = itemCountOnHourAdvancedNullable.Value;
@@ -80,11 +100,27 @@ internal sealed class SendScanResultOnceUseCase
             $" itemCountOnHourAdvanced={itemCountOnHourAdvanced}" +
             $" itemCountDifference={itemCountDifference}"
         );
+        validationLogger.Record(
+            ValidationLogRecord.HourAdvancedScanResult(
+                result: ValidationLogScanResult.Success,
+                itemCountOnLevelLoaded: itemCountOnLevelLoaded,
+                itemCountOnHourAdvanced: itemCountOnHourAdvanced,
+                itemCountDifference: itemCountDifference
+            )
+        );
 
         // The chat payload intentionally remains the historical compact
         // "initial delta" format used by this mod's classic scan workflow.
         var message = $"{itemCountOnLevelLoaded} {itemCountDifference}";
-        var sendChatSuccess = SendChat(target: SelectChatTarget(config.BroadcastMode), message: message);
+        var target = SelectChatTarget(config.BroadcastMode);
+        var sendChatSuccess = SendChat(target: target, message: message);
+        validationLogger.Record(
+            ValidationLogRecord.ChatSendResult(
+                broadcastMode: config.BroadcastMode,
+                target: target,
+                success: sendChatSuccess
+            )
+        );
 
         if (!sendChatSuccess)
         {

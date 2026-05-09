@@ -24,7 +24,11 @@ internal static class TimeOfDayPatch
         }
 
         // Keep the patch as a timing gate only; the controller/handler path
-        // owns role checks, scan comparison, and chat routing.
-        AutoTerminalScanClassic.Controller.HandleMoveTimeOfDay();
+        // owns role checks, scan comparison, and chat routing. The guard wraps
+        // only the callback handoff so failed diagnostics cannot change timing.
+        HarmonyCallbackGuard.TryNotifyHarmonyCallback(
+            callback: HarmonyCallbackTokens.TimeOfDayMoveTimeOfDayPostfix,
+            notify: AutoTerminalScanClassic.Controller.HandleMoveTimeOfDay
+        );
     }
 }

@@ -15,7 +15,11 @@ internal static class RoundManagerPatch
     public static void FinishGeneratingNewLevelClientRpcPostfix()
     {
         // Keep the patch thin: Harmony owns method binding and Core owns the
-        // client-role check plus scan-state mutation.
-        AutoTerminalScanClassic.Controller.HandleFinishGeneratingNewLevelClientRpc();
+        // client-role check plus scan-state mutation. The guard only wraps the
+        // callback boundary so diagnostics do not leak into scan policy.
+        HarmonyCallbackGuard.TryNotifyHarmonyCallback(
+            callback: HarmonyCallbackTokens.RoundManagerFinishGeneratingNewLevelClientRpcPostfix,
+            notify: AutoTerminalScanClassic.Controller.HandleFinishGeneratingNewLevelClientRpc
+        );
     }
 }

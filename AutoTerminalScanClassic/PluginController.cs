@@ -4,6 +4,7 @@ using AutoTerminalScanClassic.Core.Handlers;
 using AutoTerminalScanClassic.Core.Ports;
 using AutoTerminalScanClassic.Core.State;
 using AutoTerminalScanClassic.Core.UseCases;
+using AutoTerminalScanClassic.Core.Validation;
 using AutoTerminalScanClassic.Interop.Game;
 
 namespace AutoTerminalScanClassic;
@@ -33,7 +34,11 @@ internal sealed class PluginController
     /// Builds the plugin controller and manually wires concrete integrations to
     /// Core ports.
     /// </summary>
-    public static PluginController Create(IPluginConfig config, IPluginLogger logger)
+    public static PluginController Create(
+        IPluginConfig config,
+        IPluginLogger logger,
+        IValidationLogger validationLogger
+    )
     {
         IGameInterop gameInterop = new GameInterop(logger);
 
@@ -49,24 +54,30 @@ internal sealed class PluginController
             gameInterop: gameInterop,
             config: config,
             logger: logger,
+            validationLogger: validationLogger,
             scanState: scanState
         );
         var sendScanResultOnceUseCase = new SendScanResultOnceUseCase(
             gameInterop: gameInterop,
             config: config,
             logger: logger,
+            validationLogger: validationLogger,
             scanState: scanState
         );
+
+        validationLogger.Record(ValidationLogRecord.ControllerCreated());
 
         return new PluginController(
             roundCallbackHandler: new RoundCallbackHandler(
                 gameInterop: gameInterop,
                 logger: logger,
+                validationLogger: validationLogger,
                 resetScanForNewLevelUseCase: resetScanForNewLevelUseCase
             ),
             timeOfDayCallbackHandler: new TimeOfDayCallbackHandler(
                 gameInterop: gameInterop,
                 logger: logger,
+                validationLogger: validationLogger,
                 sendScanResultOnceUseCase: sendScanResultOnceUseCase
             )
         );

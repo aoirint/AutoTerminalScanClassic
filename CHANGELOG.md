@@ -16,6 +16,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Added a canonical developer changelog so future release preparation can keep
   maintainer-facing migration, compatibility, build, and validation context
   separate from Thunderstore-facing release notes.
+- Added opt-in structured validation logging for release-candidate checks.
+  Validation logging is disabled by default and avoids player names, lobby
+  identifiers, account identifiers, machine names, profile paths, access or
+  session tokens, and raw Unity object details.
+- Added Harmony callback diagnostics that log compact exception type metadata
+  without allowing diagnostic failures to break base-game callbacks.
 
 ### Changed
 

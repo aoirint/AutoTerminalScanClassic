@@ -16,19 +16,24 @@ internal sealed class BepInExPluginConfig : IPluginConfig
 {
     private readonly ConfigEntry<bool> enabledConfig;
     private readonly ConfigEntry<BroadcastMode> broadcastModeConfig;
+    private readonly ConfigEntry<bool> validationLoggingConfig;
 
     private BepInExPluginConfig(
         ConfigEntry<bool> enabledConfig,
-        ConfigEntry<BroadcastMode> broadcastModeConfig
+        ConfigEntry<BroadcastMode> broadcastModeConfig,
+        ConfigEntry<bool> validationLoggingConfig
     )
     {
         this.enabledConfig = enabledConfig;
         this.broadcastModeConfig = broadcastModeConfig;
+        this.validationLoggingConfig = validationLoggingConfig;
     }
 
     public bool Enabled => enabledConfig.Value;
 
     public BroadcastMode BroadcastMode => broadcastModeConfig.Value;
+
+    public bool ValidationLogging => validationLoggingConfig.Value;
 
     /// <summary>
     /// Creates the plugin configuration entries used by the scan workflow.
@@ -54,9 +59,19 @@ internal sealed class BepInExPluginConfig : IPluginConfig
             " If Always, you always send scan results to other players."
         );
 
+        // Keep validation logging opt-in because it is intended for focused
+        // release checks and produces machine-readable lines in normal logs.
+        var validationLoggingConfig = config.Bind(
+            "Debug",
+            "ValidationLogging",
+            false,
+            "Enable structured validation logs for release validation and troubleshooting."
+        );
+
         return new BepInExPluginConfig(
             enabledConfig: enabledConfig,
-            broadcastModeConfig: broadcastModeConfig
+            broadcastModeConfig: broadcastModeConfig,
+            validationLoggingConfig: validationLoggingConfig
         );
     }
 }

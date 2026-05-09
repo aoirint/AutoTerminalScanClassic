@@ -20,4 +20,9 @@ internal interface IPluginConfig
     /// User-selected routing policy for the scan-result chat message.
     /// </summary>
     BroadcastMode BroadcastMode { get; }
+
+    /// <summary>
+    /// Whether release-validation diagnostics should be emitted to the normal log stream.
+    /// </summary>
+    bool ValidationLogging { get; }
 }

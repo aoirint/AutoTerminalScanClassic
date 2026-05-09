@@ -1,6 +1,8 @@
 #nullable enable
 
 using BepInEx;
+using AutoTerminalScanClassic.Core.Ports;
+using AutoTerminalScanClassic.Core.Validation;
 using AutoTerminalScanClassic.Interop;
 using AutoTerminalScanClassic.Interop.Game.Patches;
 
@@ -55,9 +57,37 @@ public class AutoTerminalScanClassic : BaseUnityPlugin
         var logger = new BepInExPluginLogger(base.Logger);
         var config = BepInExPluginConfig.Bind(Config);
 
+        // Validation logging is wired once at startup so Core can record
+        // release-check events without branching at each call site.
+        IValidationLogger validationLogger = config.ValidationLogging
+            ? new BepInExValidationLogger(logger, System.DateTime.UtcNow)
+            : DisabledValidationLogger.Instance;
+
+        validationLogger.Record(
+            ValidationLogRecord.PluginLoaded(
+                version: MyPluginInfo.PLUGIN_VERSION,
+                validationLogging: config.ValidationLogging,
+                enabled: config.Enabled,
+                broadcastMode: config.BroadcastMode
+            )
+        );
+
         // Create the workflow facade after BepInEx adapters are bound so Core
         // remains behind ports and does not read static plugin globals.
-        controller = PluginController.Create(config: config, logger: logger);
+        controller = PluginController.Create(
+            config: config,
+            logger: logger,
+            validationLogger: validationLogger
+        );
+
+        // Startup order matters: configure the guard after the controller is
+        // wired and before patching so the first callback can be diagnosed.
+        HarmonyCallbackGuard.Configure(
+            new HarmonyCallbackDiagnosticReporter(
+                logger: logger,
+                validationLogger: validationLogger
+            )
+        );
 
         // Startup order matters: construct the controller before patching so
         // the first game callback can enter a fully wired plugin boundary.

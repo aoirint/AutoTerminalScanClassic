@@ -1,0 +1,50 @@
+#nullable enable
+
+using System;
+
+namespace AutoTerminalScanClassic.Interop.Game.Patches;
+
+internal static class HarmonyCallbackGuard
+{
+    private static HarmonyCallbackDiagnosticReporter? diagnosticReporter;
+
+    /// <summary>
+    /// Configures diagnostics before Harmony patches are installed.
+    /// </summary>
+    public static void Configure(HarmonyCallbackDiagnosticReporter reporter)
+    {
+        diagnosticReporter = reporter;
+    }
+
+    /// <summary>
+    /// Runs a patch notification and records diagnostics if the callback throws.
+    /// </summary>
+    /// <returns>
+    /// Whether the controller notification completed without throwing.
+    /// </returns>
+    public static bool TryNotifyHarmonyCallback(string callback, Action notify)
+    {
+        try
+        {
+            notify();
+            return true;
+        }
+        catch (Exception exception)
+        {
+            TryRecordCallbackException(callback: callback, exception: exception);
+            return false;
+        }
+    }
+
+    private static void TryRecordCallbackException(string callback, Exception exception)
+    {
+        try
+        {
+            diagnosticReporter?.RecordCallbackException(callback: callback, exception: exception);
+        }
+        catch
+        {
+            // Diagnostics must not turn a fail-open Harmony callback into a base-game failure.
+        }
+    }
+}
