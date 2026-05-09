@@ -4,14 +4,20 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 defaults:
   run:
     shell: bash
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -144,9 +150,13 @@ jobs:
   release:
     needs:
       - build
-    # Edge builds are validation artifacts only; GitHub releases are created
-    # only for new project versions that should receive a tag.
-    if: needs.build.outputs.release_mode != 'edge'
+    # Pull requests build validation artifacts only. GitHub releases are
+    # created from main-branch pushes for new project versions that should
+    # receive a tag.
+    if: >-
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/main' &&
+      needs.build.outputs.release_mode != 'edge'
 
     # Keep this on ubuntu-slim: release publishing only needs standard shell tools
     # included in that image, and does not require ubuntu-latest's larger toolset.
