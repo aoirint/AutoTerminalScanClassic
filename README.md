@@ -1,6 +1,7 @@
 # AutoTerminalScanClassic
 
-A Lethal Company mod that scans the number of scraps on the moon and sends it to the chat at the start of each day, just like the terminal scan technique.
+A Lethal Company mod that scans the number of scraps on the moon and sends it to the chat at the start of
+each day, just like the terminal scan technique.
 
 - [User guide](./assets/README.md)
 
@@ -101,7 +102,7 @@ DOTNET_CLI_UI_LANGUAGE=en dotnet build --configuration Release
 
 ### Manual
 
-1. Install BepInEx: https://docs.bepinex.dev/articles/user_guide/installation/index.html
+1. Install [BepInEx](https://docs.bepinex.dev/articles/user_guide/installation/index.html).
 2. Launch `Lethal Company.exe` and exit to generate the BepInEx config files.
 3. Open `C:/Program Files (x86)/Steam/steamapps/common/Lethal Company/BepInEx/config/BepInEx.cfg`.
 4. Copy the DLL file into `C:/Program Files (x86)/Steam/steamapps/common/Lethal Company/BepInEx/plugins/` from `bin/Debug/netstandard2.1/`.
