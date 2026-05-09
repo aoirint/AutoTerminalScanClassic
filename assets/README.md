@@ -19,8 +19,8 @@ to the chat at the start of each day, just like the terminal scan technique.
       generating.
     - `4` is *outdoor scrap*: the later scan count after outdoor entities have
       spawned, minus the *indoor scrap* count.
-    - Counts may drift with the terminal scan technique, such as when
-      Nutcrackers are present.
+    - Counts may sometimes differ with the terminal scan technique, such as
+      when Nutcrackers are present.
 
 ## Who needs to install
 
