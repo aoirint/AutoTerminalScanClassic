@@ -5,10 +5,15 @@ to the chat at the start of each day, just like the terminal scan technique.
 
 ## Compatibility
 
-- Current package metadata targets Lethal Company v81.5 with BepInExPack
-  v5.4.2305.
-- Earlier v0.1.x releases were prepared for Lethal Company v73.
-- Real-game validation for the current v81.5 migration is not yet recorded.
+- Lethal Company v81.5 (2026-04-17 UTC, Manifest ID:
+  `6423525044216269478`)
+    - Package metadata baseline
+        - [BepInExPack][bepinexpack-package] v5.4.2305 (2026-03-17 UTC)
+    - NOTE: Real-game validation for the current v81.5 migration is not yet
+      recorded.
+- Lethal Company v73 (2025-10-04 UTC, Manifest ID:
+  `1749099131234587692`)
+    - Earlier v0.1.x releases were prepared for this version.
 
 ## What it does
 
@@ -100,3 +105,5 @@ Some parts of this project were developed with AI tools based on large language
 models (LLMs), including agent-based tools. The project maintainer reviews the
 code. This disclosure is made in compliance with Thunderstore and community
 policies.
+
+[bepinexpack-package]: https://thunderstore.io/c/lethal-company/p/BepInEx/BepInExPack/
