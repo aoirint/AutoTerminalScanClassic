@@ -16,8 +16,8 @@ to the chat at the start of each day, just like the terminal scan technique.
   indoor and outdoor scraps on the moon and sends them to the chat like `19 4`.
     - `19` is *indoor scrap*: the scan count after the level finishes
       generating.
-    - `4` is *outdoor scrap*: the later scan count after outdoor entities start
-      spawning, minus the *indoor scrap* count.
+    - `4` is *outdoor scrap*: the later scan count after outdoor entities have
+      spawned, minus the *indoor scrap* count.
     - The counts follow vanilla terminal scan behavior, including
       vanilla-style inaccuracies.
 
