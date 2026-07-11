@@ -33,6 +33,10 @@ runs:
         # Read only the marker-adjacent Version element so unrelated XML
         # metadata does not affect release classification.
         CSPROJ_VERSION=$(sed -n '/APP_VERSION_MARKER/{n; s|<Version>\(.*\)</Version>|\1|; p;}' "${{ inputs.csproj_file }}" | tr -d '\r' | xargs)
+        if [ -z "${CSPROJ_VERSION}" ]; then
+          echo "Could not find a Version element after APP_VERSION_MARKER in ${{ inputs.csproj_file }}." >&2
+          exit 1
+        fi
         echo "version=${CSPROJ_VERSION}" >> "${GITHUB_OUTPUT}"
 
     - name: Check release mode
