@@ -3,3 +3,18 @@
 Use repository-local Agent Skills from:
 
 - `.agents/skills/`
+
+## Documentation Boundaries
+
+`docs/domain/` contains versioned base-game and reusable implementation
+knowledge without AutoTerminalScanClassic-specific product decisions.
+`docs/architecture/` contains the mod's models, logic, workflows,
+responsibilities, and design decisions; it links to the domain knowledge it
+uses. Add a new domain document when an architecture document needs knowledge
+not already documented there. Do not duplicate base-game analysis in
+architecture documents.
+
+## Documentation Skill
+
+Use `.agents/skills/maintain-mod-documentation/` when creating, restructuring,
+maintaining, or reviewing developer documentation.
