@@ -3,18 +3,52 @@
 All notable changes to this project are documented in this file.
 
 This changelog is the canonical developer-facing release history. The
-Thunderstore-facing package changelog in `assets/CHANGELOG.md` should be
-derived from stable entries in this file and rewritten for users when preparing
-future stable releases.
+Thunderstore-facing package changelog in `assets/CHANGELOG.md` is derived from
+stable release entries in this file and rewritten for users.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+## v0.2.0 - 2026-07-18 UTC
+
+### Changed
+
+- Promoted `v0.2.0-alpha.1` to stable `v0.2.0`.
+- Set the project version to stable `0.2.0`:
+    - `BepInEx.PluginInfoProps` derives the BepInEx plugin metadata version
+      from the project version.
+    - Source `assets/manifest.json` remains at the repository placeholder
+      `0.0.0`; the release workflow writes the generated stable Thunderstore
+      manifest version into the packaged artifact.
+- Published stable user-facing release notes in `assets/CHANGELOG.md`:
+    - The stable notes summarize the user-facing outcome from the prerelease
+      cycle.
+    - Detailed developer-facing prerelease implementation history remains in
+      the `v0.2.0-alpha.1` section below.
+- Added the Lethal Company v81 compatibility label to the Thunderstore
+  package.
+- Replaced the editable package-icon source with SVG. The packaged icon may
+  have minor rendering differences.
+
 ### Fixed
 
-- Corrected the inaccurate `v81.5` Lethal Company compatibility label to match
-  the in-game v81 label throughout package metadata and documentation.
+- Corrected the Thunderstore Client-side category configuration to use the
+  `clientside` submission key.
+
+### Notes
+
+- Release validation:
+    - The maintainer accepted observed v0.1.2 use on v81 as sufficient
+      compatibility evidence for this stable release.
+    - The planned dedicated alpha-validation matrix was not repeated.
+- Compatibility:
+    - Compatible with Lethal Company v81 (2026-04-17 UTC, Manifest ID:
+      `6423525044216269478`).
+        - The v81 test environment uses BepInExPack v5.4.2305.
+- Older Lethal Company versions are no longer claimed as tested by the current
+  v0.2.0 release notes; Lethal Company v73 compatibility is recorded in the
+  historical `v0.1.x` release entries below.
 
 ## v0.2.0-alpha.1 - 2026-05-09 UTC
 
@@ -42,15 +76,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Compatibility:
     - Compatible with Lethal Company v81 (2026-04-17 UTC, Manifest ID:
       `6423525044216269478`).
-        - The v81 test environment used BepInExPack v5.4.2305.
-- Older Lethal Company versions are no longer claimed as tested by the current
-  v0.2.0 release notes; Lethal Company v73 compatibility is recorded in the
-  historical `v0.1.x` release entries below.
-- This is the first `v0.2.0` alpha artifact for release-candidate validation.
-  Real-game alpha validation still needs to be performed against the packaged
-  artifact in #11 before stable release preparation starts.
+        - The v81 test environment uses BepInExPack v5.4.2305.
+- This was the first `v0.2.0` alpha artifact for release-candidate validation.
 - Prerelease artifacts are GitHub-only; Thunderstore publication remains
   limited to stable releases.
+- Superseded by stable `v0.2.0`.
 
 ## v0.1.2 - 2025-11-24 UTC
 
