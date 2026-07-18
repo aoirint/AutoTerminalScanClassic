@@ -13,7 +13,7 @@ Use the following declarations for the baseline scan and delayed comparison.
 
 | Member | Declaration | Role |
 | --- | --- | --- |
-| Scan expansion | `private string TextPostProcess(string modifiedDisplayText, TerminalNode node)` | Owns the v81 `[scanForItems]` enumeration and ship-phase predicate branches. |
+| Scan expansion | `private string TextPostProcess(string modifiedDisplayText, TerminalNode node)` | Owns the `[scanForItems]` enumeration and ship-phase predicate branches. |
 
 ### `RoundManager`
 
@@ -96,7 +96,7 @@ A cached set and terminal text do not expose the current object-level inputs.
 
 ## Terminal scan branches
 
-When `StartOfRound.Instance.inShipPhase` is false, the v81 terminal scan counts
+When `StartOfRound.Instance.inShipPhase` is false, the terminal scan counts
 a `GrabbableObject` only when `itemProperties.isScrap` is true,
 `isInShipRoom` is false, and `isInElevator` is false. During ship phase, the
 terminal counts scrap without those ship and elevator exclusions. A mod must
