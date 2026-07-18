@@ -1,9 +1,10 @@
 ---
 name: release-note-workflow
 description: >-
-  Create, update, or review user-facing release notes. Use when deriving stable
-  release notes from a canonical changelog or checking release-note readiness
-  before publication.
+  Create, update, or review user-facing stable release notes and release-note
+  readiness. Use when deriving notes from a canonical changelog or checking
+  readiness before publication; not for canonical changelog authoring or
+  publishing.
 ---
 
 # Release Note Workflow

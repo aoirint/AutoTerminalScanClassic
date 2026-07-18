@@ -1,9 +1,10 @@
 ---
 name: changelog-workflow
 description: >-
-  Create and update a canonical developer changelog. Use when adding
+  Create and maintain canonical developer release changelogs. Use when adding
   developer-facing release history, maintaining Keep a Changelog sections, or
-  preparing canonical version entries.
+  preparing canonical version entries; not for user-facing release-note writing
+  or publishing.
 ---
 
 # Changelog Workflow
