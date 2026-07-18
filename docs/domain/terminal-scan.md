@@ -6,6 +6,12 @@ This document records the terminal scan domain used for Lethal Company v81,
 Steam manifest `6423525044216269478`. Recheck the evidence when the target game
 version changes.
 
+The claims are `direct_static` observations from the v81 decompilation's
+`Terminal.cs`, `RoundManager.cs`, and `TimeOfDay.cs`. The matching v81 asset
+root was inspected; no serialized override is used as a premise here. Actual
+spawn completion remains a runtime observation, so the timing section states a
+code gate rather than a guaranteed observation window.
+
 ## Counted objects
 
 The scan count is based on `GrabbableObject` instances. An object belongs in the
