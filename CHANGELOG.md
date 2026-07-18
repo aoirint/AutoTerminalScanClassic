@@ -11,6 +11,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+### Fixed
+
+- Corrected the inaccurate `v81.5` Lethal Company compatibility label to match
+  the in-game v81 label throughout package metadata and documentation.
+
 ## v0.2.0-alpha.1 - 2026-05-09 UTC
 
 ### Added
@@ -29,15 +34,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 - Documented repository maintenance guidance for development, quality checks,
   dependency updates, release preparation, and Thunderstore package notes.
-- Updated package-facing compatibility documentation for the current Lethal
-  Company v81.5 dependency baseline.
+- Updated package-facing compatibility documentation for the current in-game
+  Lethal Company v81 label.
 
 ### Notes
 
 - Compatibility:
-    - Compatible with Lethal Company v81.5 (2026-04-17 UTC, Manifest ID:
+    - Compatible with Lethal Company v81 (2026-04-17 UTC, Manifest ID:
       `6423525044216269478`).
-        - The v81.5 test environment used BepInExPack v5.4.2305.
+        - The v81 test environment used BepInExPack v5.4.2305.
 - Older Lethal Company versions are no longer claimed as tested by the current
   v0.2.0 release notes; Lethal Company v73 compatibility is recorded in the
   historical `v0.1.x` release entries below.
