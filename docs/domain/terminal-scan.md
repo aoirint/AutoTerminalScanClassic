@@ -1,54 +1,46 @@
 # Terminal Scan
 
-## Evidence scope
+## Target
 
-This document records the terminal scan domain used for Lethal Company v81,
-Steam manifest `6423525044216269478`. Recheck the evidence when the target game
-version changes.
+- Game: Lethal Company v81
+- Steam manifest ID: `6423525044216269478`
 
-The relevant implementation includes `Terminal`,
-`RoundManager.FinishGeneratingNewLevelClientRpc()`, and
-`TimeOfDay.MoveTimeOfDay()`.
+Use the following declarations for the baseline scan and delayed comparison.
 
-## Counted objects
+## Patch and access targets
 
-The scan count is based on `GrabbableObject` instances. An object belongs in the
-remaining-loot count only when all of the following are true:
+| Type | Member | Declaration | Use |
+| --- | --- | --- | --- |
+| `RoundManager` | Level-generation completion | `public void FinishGeneratingNewLevelClientRpc()` | Patch with a postfix to take the baseline after the client has finished level generation. |
+| `TimeOfDay` | Time tick | `private void MoveTimeOfDay()` | Patch with `AccessTools.Method(typeof(TimeOfDay), "MoveTimeOfDay")`; use `TimeOfDay __instance` to read the gate fields. |
+| `TimeOfDay` | Elapsed time | `public float globalTime` | Current time used by the delayed comparison gate. |
+| `TimeOfDay` | Time speed | `public float globalTimeSpeedMultiplier` | The delayed gate is `globalTime - 100f >= globalTimeSpeedMultiplier`. |
+| `GrabbableObject` | Item data | `public Item itemProperties` | A null value means the object cannot be classified as loot. |
+| `GrabbableObject` | Ship-room state | `public bool isInShipRoom` | Excludes items in the ship room. |
+| `GrabbableObject` | Elevator state | `public bool isInElevator` | Excludes items in the elevator. |
+| `Item` | Scrap flag | `public bool isScrap` | Includes only scrap items. |
 
-- `itemProperties` is available.
-- `itemProperties.isScrap` is true.
-- The object is not in the ship room.
-- The object is not in the elevator.
+## Count and timing
 
-Treat a missing `itemProperties` value as an unavailable observation rather
-than a zero or partial count.
+Count a `GrabbableObject` only when `itemProperties` is non-null,
+`itemProperties.isScrap` is true, `isInShipRoom` is false, and `isInElevator`
+is false. A missing `itemProperties` is an unavailable observation, not a
+zero-value item.
 
-## Timing
+`RoundManager.FinishGeneratingNewLevelClientRpc()` is the baseline callback.
+`TimeOfDay.MoveTimeOfDay()` supplies the later polling callback. For the
+classic comparison, do not take the second count until:
 
-Level generation and time advancement are separate game events. A scan taken
-immediately after level generation provides a baseline. A later scan must wait
-until the relevant spawned objects are available; otherwise the comparison can
-describe spawn timing rather than item movement.
-
-For the classic timing used by this repository, the later gate is reached when
-`globalTime - 100f` is at least `globalTimeSpeedMultiplier`.
-
-## Comparison interpretation
-
-Given a baseline count and a later count, the difference is:
-
-```text
-later count - baseline count
+```csharp
+timeOfDay.globalTime - 100f >= timeOfDay.globalTimeSpeedMultiplier
 ```
 
-Keep the two source counts available when diagnosing a surprising difference.
-A count difference alone does not identify which items moved or why.
+The reported delta is `laterCount - baselineCount`. It identifies a change in
+the qualifying object count, not the identity or cause of each item movement.
 
 ## Change checklist
 
-Before relying on a terminal-scan comparison, confirm:
-
-1. The target game version and manifest match the evidence.
-2. Both observations use the same inclusion rules.
-3. Neither observation is partial or unavailable.
-4. The later observation is taken after the relevant spawn window.
+1. Patch the exact no-argument RPC and no-argument private time method above.
+2. Take baseline and later counts with the same `GrabbableObject` predicate.
+3. Retain both counts for diagnostics; do not reduce an unavailable read to 0.
+4. Keep the `100f` offset and `globalTimeSpeedMultiplier` comparison together.
