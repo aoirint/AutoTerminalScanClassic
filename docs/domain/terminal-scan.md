@@ -37,6 +37,15 @@ Use the following declarations for the baseline scan and delayed comparison.
 | --- | --- | --- |
 | Scrap flag | `public bool isScrap` | Includes only scrap items. |
 
+## Implementation choices
+
+| Decision | Options | Recommended approach | Why |
+| --- | --- | --- | --- |
+| Take the baseline count | Patch `FinishGeneratingNewLevelClientRpc()`; use a scene-load callback; start a fixed delay | Use a postfix on `FinishGeneratingNewLevelClientRpc()`. | The callback names the client-side completion of level generation; a scene callback or elapsed delay does not establish the same game-state boundary. |
+| Take the later count | Use a coroutine delay; poll in `Update()`; patch `MoveTimeOfDay()` | Use a postfix on `MoveTimeOfDay()` and evaluate the documented `globalTime` gate. | The later boundary is defined by base-game time values, so it remains tied to the same time progression as the game rather than to a mod-local timer. |
+| Select counted objects | Count all `GrabbableObject`s; rely on scan UI text; apply the explicit item predicate | Apply the `itemProperties`, `isScrap`, `isInShipRoom`, and `isInElevator` predicate. | The predicate distinguishes remaining scrap from non-scrap and ship-contained objects; UI text provides an already-aggregated result without the classification inputs. |
+| Handle missing item data | Treat null `itemProperties` as zero; skip and record an unavailable read | Skip and record it as unavailable. | A null item definition cannot establish whether the object is scrap, so converting it to zero silently turns an incomplete observation into a count. |
+
 ## Count and timing
 
 Count a `GrabbableObject` only when `itemProperties` is non-null,
