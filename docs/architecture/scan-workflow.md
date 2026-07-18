@@ -27,4 +27,3 @@ The mod reports one comparison result for each generated level. Repeated time
 ticks must not resend the same result, and a missing baseline must not be
 treated as zero. Validation logging records these outcomes without becoming a
 second source of scan state.
-

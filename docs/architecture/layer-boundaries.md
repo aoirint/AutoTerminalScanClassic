@@ -24,4 +24,3 @@ adapters, state, use cases, and handlers, then provides the callback-facing
 methods used by Interop. New external dependencies should enter through an
 Interop adapter and a Core port rather than through static access from a use
 case.
-

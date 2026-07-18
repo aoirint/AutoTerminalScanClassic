@@ -7,4 +7,3 @@ documented in [../domain/terminal-scan.md](../domain/terminal-scan.md).
   delivery policy.
 - [Layer boundaries](layer-boundaries.md) defines the Core and Interop
   responsibilities.
-
