@@ -316,6 +316,7 @@ to the [`lethal-company`][thunderstore-lethal-company-community] community with
 these categories:
 
 - `Mods`
+- `Client-side`
 - `Tweaks & Quality Of Life`
 - `AI Generated`
 
