@@ -27,6 +27,7 @@ Use the following declarations for the baseline scan and delayed comparison.
 
 | Member | Declaration | Role |
 | --- | --- | --- |
+| Scene enumeration | `UnityEngine.Object.FindObjectsOfType<GrabbableObject>()` | Returns the loaded objects whose item state can be classified. |
 | Item data | `public Item itemProperties` | A null value means the object cannot be classified as loot. |
 | Ship-room state | `public bool isInShipRoom` | Excludes items in the ship room. |
 | Elevator state | `public bool isInElevator` | Excludes items in the elevator. |
@@ -81,6 +82,19 @@ This includes objects that do not satisfy the terminal-scan definition.
 The UI is an already-aggregated result and does not expose the object-level
 classification inputs required by the count.
 
+### Find countable objects
+
+#### Enumerate loaded `GrabbableObject` components for each count — recommended
+
+`Object.FindObjectsOfType<GrabbableObject>()` provides the current scene set
+whose `itemProperties`, ship-room, and elevator flags define the predicate.
+Evaluate the same predicate for the baseline and later count.
+
+#### Retain a previous enumeration or infer the count from a terminal field
+
+Objects can be spawned, despawned, or move into the ship between observations.
+A cached set and terminal text do not expose the current object-level inputs.
+
 ### Handle missing item data
 
 #### Skip the object and record an unavailable read — recommended
@@ -99,8 +113,10 @@ is false. A missing `itemProperties` is an unavailable observation, not a
 zero-value item.
 
 `RoundManager.FinishGeneratingNewLevelClientRpc()` is the baseline callback.
-`TimeOfDay.MoveTimeOfDay()` supplies the later polling callback. For the
-classic comparison, do not take the second count until:
+The game invokes it after the client-side level generation completion path.
+`TimeOfDay.Update()` invokes `MoveTimeOfDay()` during time progression, so its
+postfix supplies the later polling callback. For the classic comparison, do not
+take the second count until:
 
 ```csharp
 timeOfDay.globalTime - 100f >= timeOfDay.globalTimeSpeedMultiplier
