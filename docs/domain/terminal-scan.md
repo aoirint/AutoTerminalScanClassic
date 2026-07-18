@@ -9,16 +9,33 @@ Use the following declarations for the baseline scan and delayed comparison.
 
 ## Patch and access targets
 
-| Type | Member | Declaration | Use |
-| --- | --- | --- | --- |
-| `RoundManager` | Level-generation completion | `public void FinishGeneratingNewLevelClientRpc()` | Patch with a postfix to take the baseline after the client has finished level generation. |
-| `TimeOfDay` | Time tick | `private void MoveTimeOfDay()` | Patch with `AccessTools.Method(typeof(TimeOfDay), "MoveTimeOfDay")`; use `TimeOfDay __instance` to read the gate fields. |
-| `TimeOfDay` | Elapsed time | `public float globalTime` | Current time used by the delayed comparison gate. |
-| `TimeOfDay` | Time speed | `public float globalTimeSpeedMultiplier` | The delayed gate is `globalTime - 100f >= globalTimeSpeedMultiplier`. |
-| `GrabbableObject` | Item data | `public Item itemProperties` | A null value means the object cannot be classified as loot. |
-| `GrabbableObject` | Ship-room state | `public bool isInShipRoom` | Excludes items in the ship room. |
-| `GrabbableObject` | Elevator state | `public bool isInElevator` | Excludes items in the elevator. |
-| `Item` | Scrap flag | `public bool isScrap` | Includes only scrap items. |
+### `RoundManager`
+
+| Member | Declaration | Role |
+| --- | --- | --- |
+| Level-generation completion | `public void FinishGeneratingNewLevelClientRpc()` | Patch with a postfix to take the baseline after the client has finished level generation. |
+
+### `TimeOfDay`
+
+| Member | Declaration | Role |
+| --- | --- | --- |
+| Time tick | `private void MoveTimeOfDay()` | Patch with `AccessTools.Method(typeof(TimeOfDay), "MoveTimeOfDay")`; use `TimeOfDay __instance` to read the gate fields. |
+| Elapsed time | `public float globalTime` | Current time used by the delayed comparison gate. |
+| Time speed | `public float globalTimeSpeedMultiplier` | The delayed gate is `globalTime - 100f >= globalTimeSpeedMultiplier`. |
+
+### `GrabbableObject`
+
+| Member | Declaration | Role |
+| --- | --- | --- |
+| Item data | `public Item itemProperties` | A null value means the object cannot be classified as loot. |
+| Ship-room state | `public bool isInShipRoom` | Excludes items in the ship room. |
+| Elevator state | `public bool isInElevator` | Excludes items in the elevator. |
+
+### `Item`
+
+| Member | Declaration | Role |
+| --- | --- | --- |
+| Scrap flag | `public bool isScrap` | Includes only scrap items. |
 
 ## Count and timing
 
