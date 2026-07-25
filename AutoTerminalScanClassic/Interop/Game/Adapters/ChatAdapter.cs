@@ -2,6 +2,9 @@
 
 using AutoTerminalScanClassic.Core.Ports;
 using GameNetcodeStuff;
+using HarmonyLib;
+using System;
+using System.Reflection;
 
 namespace AutoTerminalScanClassic.Interop.Game.Adapters;
 
@@ -14,6 +17,12 @@ namespace AutoTerminalScanClassic.Interop.Game.Adapters;
 /// </remarks>
 internal sealed class ChatAdapter
 {
+    private static readonly MethodInfo? AddChatMessageMethod = AccessTools.Method(
+        typeof(HUDManager),
+        "AddChatMessage",
+        [typeof(string), typeof(string), typeof(int), typeof(bool)]
+    );
+
     private readonly IPluginLogger logger;
 
     public ChatAdapter(IPluginLogger logger)
@@ -36,12 +45,35 @@ internal sealed class ChatAdapter
             return false;
         }
 
-        // AddChatMessage updates only this client's HUD, preserving SelfOnly
-        // and non-host HostOnly behavior without touching server chat state.
-        hudManager.AddChatMessage(
-            message,
-            localPlayerController.playerUsername
-        );
+        // v81 makes this HUD-only method private. Reflection keeps the
+        // SelfOnly contract without routing the message through the server.
+        if (AddChatMessageMethod == null)
+        {
+            logger.LogError("HUDManager.AddChatMessage(string, string, int, bool) was not found.");
+            return false;
+        }
+
+        try
+        {
+            AddChatMessageMethod.Invoke(
+                hudManager,
+                [message, localPlayerController.playerUsername, -1, false]
+            );
+        }
+        catch (TargetInvocationException exception)
+        {
+            logger.LogError(
+                $"HUDManager.AddChatMessage failed. exception_type={exception.InnerException?.GetType().FullName ?? exception.GetType().FullName}"
+            );
+            return false;
+        }
+        catch (Exception exception)
+        {
+            logger.LogError(
+                $"HUDManager.AddChatMessage invocation failed. exception_type={exception.GetType().FullName}"
+            );
+            return false;
+        }
 
         return true;
     }
