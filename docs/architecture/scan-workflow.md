@@ -41,6 +41,23 @@ baseline. Otherwise, a missing baseline, later scan failure, or chat-send
 failure leaves the state retryable on a later eligible time tick. Only a
 successful chat send marks an enabled run sent.
 
+## Late first spawn relative to the gate
+
+The delayed gate is based only on `globalTime`; it does not wait for an enemy
+vent, a daytime-enemy batch, or a displayed-clock event. The first-batch
+schedule is documented in
+[../domain/enemy-spawn-scheduling.md](../domain/enemy-spawn-scheduling.md).
+The first batch can complete after the classic 07:40 gate when an interior vent
+remains scheduled later in the first cycle.
+
+At the first eligible callback, the mod performs the later terminal scan and
+sends the count delta when that scan and chat delivery both succeed. A hive or
+other countable object that has already spawned is reflected only as part of
+that aggregate count; the result does not identify its type or spawn cause.
+An object that spawns after a successful send is absent from that result:
+`ScanState` is marked sent and the mod performs no automatic rescan for the
+level. A failed scan or chat send remains retryable on a later time callback.
+
 ## Delivery policy
 
 When enabled and both observations plus delivery succeed, the mod reports one

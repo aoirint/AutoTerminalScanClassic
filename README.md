@@ -5,6 +5,7 @@ the moon and sends it to the chat at the start of each day, just like the
 terminal scan technique.
 
 - [User guide](./assets/README.md)
+- [Developer documentation](./docs/README.md)
 
 ## Development
 

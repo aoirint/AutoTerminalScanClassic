@@ -7,6 +7,8 @@
   design choices.
 - `architecture/` contains this mod's models, workflows, responsibilities,
   and design decisions. It links to the domain knowledge it relies on.
+- `operations/` contains repeatable maintainer procedures. It does not own
+  either base-game facts or mod design decisions.
 - Keep a domain document focused on one game or technical concern. Add a new
   domain document when an architecture document needs knowledge not already
   covered there.
@@ -20,4 +22,5 @@
   and regeneration workflow.
 
 Start with [architecture/README.md](architecture/README.md) for the mod design,
-and [domain/README.md](domain/README.md) for supporting knowledge.
+[domain/README.md](domain/README.md) for supporting knowledge, and
+[operations/README.md](operations/README.md) for maintainer procedures.
