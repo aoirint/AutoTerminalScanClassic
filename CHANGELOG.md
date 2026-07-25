@@ -10,6 +10,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+## v0.2.1 - 2026-07-25 UTC
+
+### Fixed
+
+- Restored `SelfOnly` scan-result chat messages on Lethal Company v81. The
+  game's local HUD method is private in this version, so the adapter invokes
+  the exact v81 method through Harmony reflection without broadcasting the
+  message to other players.
+
+### Notes
+
+- Compatibility: Lethal Company v81 (2026-04-17 UTC, Manifest ID:
+  `6423525044216269478`).
+
 ## v0.2.0 - 2026-07-18 UTC
 
 ### Changed
