@@ -7,6 +7,18 @@ If you find a release-note error, encounter a bug, or want to report another
 project issue, see [CONTRIBUTING.md][contributing], then report it in
 [GitHub Issues][github-issues].
 
+## v0.2.1 - 2026-07-25 UTC
+
+### Fixed
+
+- Fixed `SelfOnly` mode so your automatic scan result appears in your local
+  chat again on Lethal Company v81.
+
+### Notes
+
+- Compatibility: Lethal Company v81 (2026-04-17 UTC, Manifest ID:
+  `6423525044216269478`).
+
 ## v0.2.0 - 2026-07-18 UTC
 
 This release rebuilds AutoTerminalScanClassic for Lethal Company v81 and
