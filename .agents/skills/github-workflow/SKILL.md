@@ -82,6 +82,12 @@ security-sensitive content and `prose-quality-check` for nuanced prose.
    AI-assisted work in `### AI-assisted inspections` after automated checks
    with `Request: ...` and nested `AI-assisted result: ...`. State skipped
    verification and never describe AI work as manual.
+   When the body cites a GitHub repository, issue, pull request, commit,
+   release, workflow run, or other reviewable artifact, use a descriptive
+   Markdown link to its canonical URL. Do not leave an auditable source as only
+   `owner/repo#123`, a short SHA, or prose that makes the reviewer search for
+   the referenced artifact. An exact identity may remain in inline code when
+   the same item is linked beside it.
 5. Use `Update Note`, `Discussion Note`, or `Review Note` only when requested.
    Put `Request addressed: ...` after the required alert; group retrospective
    notes by meaningful theme, label inferences, and omit secrets, private
