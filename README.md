@@ -239,11 +239,7 @@ pinact run --update --min-age 7
 
 #### GitHub Variables
 
-This repository currently does not use GitHub Actions variables.
-
-| Name | Used by | Description |
-| :--- | :------ | :---------- |
-| None | Not applicable | No repository variables are currently used. |
+No repository-level GitHub Actions variables are required.
 
 #### GitHub Secrets
 
