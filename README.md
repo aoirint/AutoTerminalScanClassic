@@ -167,11 +167,9 @@ so cached downloads are still verified before use.
 
 NuGet applies a seven-day minimum publish age to automatic version selection.
 
-To update the lock file after modifying package references, run:
+See the [dependency update commands][dependency-update-commands].
 
-```powershell
-dotnet restore --use-lock-file
-```
+[dependency-update-commands]: https://github.com/aoirint/AutoTerminalScanClassic/blob/main/docs/operations/development.md#dependency-updates
 
 ### Thunderstore manifest dependency updates
 
